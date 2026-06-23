@@ -1,4 +1,158 @@
 {
+  "marketing": {
+    "nav": {
+      "features": "Features",
+      "solutions": "Solutions",
+      "cases": "Showcase",
+      "pricing": "Pricing",
+      "about": "About Us",
+      "cta": "Get Started",
+      "workspace": "Workspace"
+    },
+    "hero": {
+      "title": "AI-Driven Immersive Interactive Classrooms",
+      "subtitle": "Instantly transform any topic or educational PDF into an immersive multi-agent collaborative learning experience.",
+      "ctaStart": "Get Started",
+      "ctaMore": "Learn More"
+    },
+    "valueProps": {
+      "title": "Core Values",
+      "subtitle": "Break through traditional teaching boundaries with AI-enabled learning",
+      "generator": {
+        "title": "Instant AI Generation",
+        "desc": "Simply input a topic or upload a PDF to automatically generate interactive slides and activities within minutes."
+      },
+      "agents": {
+        "title": "Multi-Agent Interaction",
+        "desc": "AI teachers and agent classmates lead the classroom, with voice narration, whiteboard drawings, and real-time discussions."
+      },
+      "interactions": {
+        "title": "Deep Interactive Elements",
+        "desc": "Built-in 3D visualization, interactive simulation experiments, games, mind maps, and live coding terminals."
+      },
+      "export": {
+        "title": "Flexible Export & Share",
+        "desc": "Download editable PowerPoint (.pptx) slides or export as fully interactive standalone HTML web pages."
+      }
+    },
+    "steps": {
+      "title": "How it Works",
+      "subtitle": "Three simple steps to start your immersive learning journey",
+      "step1": "Input Topic or Upload Docs",
+      "step1Desc": "Describe the topic you want to teach or upload existing slide PDFs.",
+      "step2": "AI Auto-generates Syllabus & Content",
+      "step2Desc": "The multi-agent engine retrieves information and generates a complete syllabus, slides, and activities.",
+      "step3": "Start Immersive Interactive Learning",
+      "step3Desc": "Enter the classroom to listen to explanations, view whiteboard drawings, and participate in quizzes/labs."
+    },
+    "footer": {
+      "desc": "The next-generation AI interactive classroom, making learning immersive and fun.",
+      "product": "Product",
+      "resources": "Resources",
+      "community": "Community",
+      "about": "About",
+      "userManual": "User Manual",
+      "paper": "Academic Paper (JCST'26)",
+      "license": "License (AGPL-3.0)",
+      "copyright": "© 2026 TDu Interactive Classroom. All rights reserved."
+    }
+  },
+  "featuresPage": {
+    "title": "Features & Capabilities",
+    "subtitle": "Explore the powerful features of TDu AI Interactive Classroom",
+    "engine": {
+      "title": "Multi-Agent Curriculum Generation Engine",
+      "desc": "Our core generation system is based on an advanced multi-agent collaboration framework, where AI agents act as course designers, subject experts, and evaluators to design the syllabus and curriculum."
+    },
+    "classroom": {
+      "title": "Multi-Role Immersive Classroom",
+      "desc": "More than just a slide deck. The AI teacher conducts lectures and draws on the whiteboard, while multiple AI student agents ask questions or argue, replicating a real classroom atmosphere."
+    },
+    "interactives": {
+      "title": "Deep Interactive Labs",
+      "desc": "Seamlessly insert 3D models, physics/chemistry interactive labs, online programming terminals, and mind maps into your slides to learn by doing."
+    },
+    "pbl": {
+      "title": "Project-Based Learning (PBL) Mode",
+      "desc": "Supports deep project exploration where AI agents serve as project advisors, guiding students to resolve complex real-world tasks."
+    },
+    "integration": {
+      "title": "OpenClaw Integration",
+      "desc": "Deep integration with the OpenClaw ecosystem allows you to generate classrooms directly inside messaging platforms like Feishu, Slack, Discord, and Telegram."
+    }
+  },
+  "solutionsPage": {
+    "title": "Solutions for Higher Education",
+    "subtitle": "AI-powered educational upgrade designed for universities",
+    "painpoint": {
+      "title": "Painpoints in Traditional Classrooms",
+      "item1": "Heavy burden on lesson preparation, especially for interdisciplinary subjects.",
+      "item2": "Large class sizes make it difficult to address individual student questions.",
+      "item3": "Theoretical lectures are disconnected from practical hand-on experience."
+    },
+    "solution": {
+      "title": "The TDuMAIC Solution",
+      "desc": "We provide a low-cost, highly interactive AI assistant tool for universities. Teachers can easily turn lectures into agent-guided discussions and formula concepts into 3D interactive labs, reducing repetitive prep work."
+    },
+    "cases": {
+      "title": "Typical Application Scenarios",
+      "science": "Science Labs (3D models, physics simulations, live coding)",
+      "humanities": "Seminar Discussions (AI multi-perspective debates and inputs)",
+      "general": "Flipped Classrooms (self-directed generation and classroom review)"
+    }
+  },
+  "casesPage": {
+    "title": "Showcase & Case Studies",
+    "subtitle": "See how teachers and students use TDuMAIC for daily learning",
+    "list": {
+      "case1": {
+        "title": "Quantum Mechanics: Schrödinger Equation",
+        "desc": "Visualizing wave function probability density with 3D quantum well simulations, with live questions from AI students.",
+        "tag": "Science"
+      },
+      "case2": {
+        "title": "Data Structures: AVL Tree",
+        "desc": "Understand AVL tree insertion and rotation with interactive visuals and built-in coding exercises.",
+        "tag": "Computer Science"
+      },
+      "case3": {
+        "title": "Historical Relics Conservation & Restoration",
+        "desc": "AI roundtable discussions on bronze preservation across history, archaeology, and material science.",
+        "tag": "Humanities & Social Sciences"
+      }
+    }
+  },
+  "pricingPage": {
+    "title": "Product Pricing",
+    "subtitle": "Flexible plans suitable for personal learning, schools, and institutions",
+    "free": {
+      "name": "Community",
+      "price": "Free",
+      "desc": "Fully open-source, ideal for self-hosting and personal research."
+    },
+    "pro": {
+      "name": "Pro Plan",
+      "price": "Coming Soon",
+      "desc": "Zero-configuration online cloud hosting with sufficient AI API credits."
+    },
+    "enterprise": {
+      "name": "Enterprise / Institution",
+      "price": "Contact Us",
+      "desc": "Tailored for universities and large educational institutions with private deployment and custom support."
+    }
+  },
+  "aboutPage": {
+    "title": "About Us",
+    "subtitle": "Explore the origin of TDuMAIC and our educational mission",
+    "vision": {
+      "title": "Our Vision",
+      "desc": "We believe AI should be an amplifier for education, not a replacement. TDuMAIC aims to bring generative AI to every classroom, making learning immersive, hands-on, and fun."
+    },
+    "academic": {
+      "title": "Academic Origins",
+      "desc": "Originating from research on multi-agent classrooms at Tsinghua University, published in the JCST'26 international academic journal."
+    }
+  },
   "common": {
     "you": "You",
     "confirm": "Confirm",
