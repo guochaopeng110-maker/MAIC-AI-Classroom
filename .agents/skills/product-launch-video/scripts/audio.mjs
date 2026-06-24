@@ -125,6 +125,7 @@ function runGenerate(argv) {
   const outPath = resolve(flag(argv, "out", join(hyperframesDir, "audio_meta.json")));
   const userVoice = flag(argv, "voice", null);
   const speed = Number(flag(argv, "speed", "1.0")) || 1.0;
+  const lang = flag(argv, "lang", null);
 
   if (!existsSync(storyboardPath)) die(`STORYBOARD.md not found at ${storyboardPath}`);
   const manifest = parseStoryboard(readFileSync(storyboardPath, "utf8"));
@@ -147,6 +148,7 @@ function runGenerate(argv) {
     lines,
     bgm: { mode: "retrieve", query, blob: g.message || "", arc: g.arc || "" },
   };
+  if (lang) request.lang = lang;
   if (userVoice) request.voice = userVoice;
 
   const neutral = neutralPath(outPath);

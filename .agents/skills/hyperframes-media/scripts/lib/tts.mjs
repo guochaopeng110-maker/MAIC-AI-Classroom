@@ -83,7 +83,11 @@ export function ffprobeDuration(absPath) {
 
 function spawnP(cmd, args, opts) {
   return new Promise((resolve) => {
-    const p = spawn(cmd, args, { stdio: "ignore", ...opts });
+    const isWin = process.platform === "win32";
+    const isNpx = cmd === "npx";
+    const cmdName = (isWin && isNpx) ? "npx.cmd" : cmd;
+    const shellOpt = (isWin && isNpx) ? { shell: true } : {};
+    const p = spawn(cmdName, args, { stdio: "ignore", ...shellOpt, ...opts });
     p.on("exit", (code) => resolve({ status: code ?? -1 }));
     p.on("error", () => resolve({ status: -1 }));
   });
@@ -109,7 +113,7 @@ import os, sys
 from elevenlabs.client import ElevenLabs
 from elevenlabs import save
 client = ElevenLabs(api_key=os.environ["ELEVENLABS_API_KEY"])
-text = open(sys.argv[1]).read()
+text = open(sys.argv[1], encoding="utf-8").read()
 audio = client.text_to_speech.convert(
     text=text, voice_id=sys.argv[2],
     model_id="eleven_multilingual_v2", output_format="mp3_44100_128",
@@ -131,11 +135,15 @@ export async function synthesizeOne({
   hyperframesDir,
 }) {
   if (provider === "heygen") return synthesizeHeygen({ text, voiceId, lang, speed, wavAbs });
+  
+  // 确保输出音频的父目录存在，防止 Python/npx 写入文件时发生父目录不存在错误
+  mkdirSync(dirname(wavAbs), { recursive: true });
+
   if (provider === "elevenlabs") {
     const r = await spawnP(
       "python3",
       ["-c", ELEVENLABS_PY, writeTmpText(text), voiceId, wavAbs],
-      {},
+      { stdio: "inherit" },
     );
     return { ok: r.status === 0 && existsSync(wavAbs), words: null };
   }

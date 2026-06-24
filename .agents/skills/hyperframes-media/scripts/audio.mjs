@@ -156,7 +156,10 @@ if (only.has("tts") && lines.length) {
     }
     return { id, path: rel, duration_s: r3(dur), words: withWordIds(wordArr) };
   };
-  const results = await Promise.all(lines.map(synthLine));
+  const results = [];
+  for (const line of lines) {
+    results.push(await synthLine(line));
+  }
   voices = results.filter(Boolean);
   for (const v of voices)
     console.error(`  voice ${v.id}: ${v.path} (${v.duration_s}s, ${v.words.length} words)`);
