@@ -10,6 +10,7 @@ import { SectionHeading } from '@/components/marketing/section-heading';
 
 export default function LandingPage() {
   const { t } = useI18n();
+  const [isPlaying, setIsPlaying] = React.useState(false);
 
   return (
     <div className="relative overflow-hidden pb-16 dot-grid-bg">
@@ -61,21 +62,36 @@ export default function LandingPage() {
             className="mt-16 relative mx-auto max-w-5xl rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 p-2 shadow-2xl backdrop-blur-sm"
           >
             <div className="relative overflow-hidden rounded-xl aspect-video border border-zinc-200 dark:border-zinc-800 bg-zinc-900 flex items-center justify-center">
-              <img
-                src="/logos/logo.png"
-                alt="Demo App Screenshot"
-                className="absolute inset-0 w-full h-full object-cover opacity-60 dark:opacity-40 filter blur-[2px]"
-                onError={(e) => {
-                  (e.target as HTMLElement).style.display = 'none';
-                }}
-              />
-              <div className="relative z-10 flex flex-col items-center gap-4 p-8 text-center max-w-lg">
-                <div className="w-16 h-16 rounded-full bg-violet-600 text-white flex items-center justify-center shadow-lg shadow-violet-500/30 cursor-pointer hover:scale-105 transition-all">
-                  <Play size={24} fill="currentColor" className="ml-1" />
-                </div>
-                <h3 className="text-xl font-bold text-white">{t('marketing.hero.demoTitle')}</h3>
-                <p className="text-sm text-zinc-300">{t('marketing.hero.demoDesc')}</p>
-              </div>
+              {isPlaying ? (
+                <video
+                  src="/videos/tdu-ai-promo.mp4"
+                  controls
+                  autoPlay
+                  className="w-full h-full object-cover rounded-xl"
+                />
+              ) : (
+                <>
+                  <img
+                    src="/logos/logo.png"
+                    alt="Demo App Screenshot"
+                    className="absolute inset-0 w-full h-full object-cover opacity-60 dark:opacity-40 filter blur-[2px]"
+                    onError={(e) => {
+                      (e.target as HTMLElement).style.display = 'none';
+                    }}
+                  />
+                  <div className="relative z-10 flex flex-col items-center gap-4 p-8 text-center max-w-lg">
+                    <button
+                      onClick={() => setIsPlaying(true)}
+                      aria-label="Play Demo Video"
+                      className="w-16 h-16 rounded-full bg-violet-600 text-white flex items-center justify-center shadow-lg shadow-violet-500/30 cursor-pointer hover:scale-105 transition-all border-none focus:outline-none focus:ring-2 focus:ring-violet-400 focus:ring-offset-2"
+                    >
+                      <Play size={24} fill="currentColor" className="ml-1" />
+                    </button>
+                    <h3 className="text-xl font-bold text-white">{t('marketing.hero.demoTitle')}</h3>
+                    <p className="text-sm text-zinc-300">{t('marketing.hero.demoDesc')}</p>
+                  </div>
+                </>
+              )}
             </div>
           </motion.div>
         </div>

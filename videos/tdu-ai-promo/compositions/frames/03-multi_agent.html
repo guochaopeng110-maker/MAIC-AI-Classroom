@@ -1,0 +1,324 @@
+<template id="03-multi_agent-template">
+  <div id="03-multi_agent" data-composition-id="03-multi_agent" data-width="1920" data-height="1080">
+    <style>
+      #03-multi_agent {
+        width: 100%;
+        height: 100%;
+        background: #09090b;
+        display: grid;
+        grid-template-columns: 360px 1fr 440px;
+        gap: 30px;
+        padding: 60px;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+        color: #ffffff;
+        overflow: hidden;
+      }
+
+      /* Left Side: Teacher Card & Waveform */
+      .teacher-card {
+        background: rgba(20, 20, 25, 0.6);
+        border: 1px solid rgba(124, 58, 237, 0.2);
+        border-radius: 20px;
+        padding: 32px 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #7c3aed 0%, #6366f1 100%);
+        border: 4px solid rgba(124, 58, 237, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 50px;
+        box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+      }
+
+      .teacher-info {
+        text-align: center;
+      }
+
+      .teacher-name {
+        font-size: 24px;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 6px;
+      }
+
+      .teacher-title {
+        font-size: 16px;
+        color: #a5b4fc;
+        letter-spacing: 1px;
+      }
+
+      .voice-wave {
+        display: flex;
+        align-items: flex-end;
+        gap: 6px;
+        height: 80px;
+        margin-top: 20px;
+      }
+
+      .wave-bar {
+        width: 6px;
+        height: 10px;
+        background: linear-gradient(to top, #7c3aed, #6366f1);
+        border-radius: 3px;
+      }
+
+      /* Center: PPT Slide Area */
+      .slide-area {
+        background: #141419;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 24px;
+        padding: 50px 60px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+      }
+
+      .slide-header {
+        font-size: 20px;
+        color: #a1a1aa;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .slide-title {
+        font-size: 54px;
+        font-weight: 800;
+        margin-bottom: 40px;
+        background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .slide-content {
+        flex-grow: 1;
+        display: flex;
+        gap: 40px;
+      }
+
+      .slide-bullet-list {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        font-size: 22px;
+        color: #d4d4d8;
+        line-height: 1.6;
+        width: 60%;
+      }
+
+      .slide-bullet {
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+      }
+
+      .bullet-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #7c3aed;
+        margin-top: 10px;
+        box-shadow: 0 0 10px #7c3aed;
+      }
+
+      .slide-visual {
+        flex-grow: 1;
+        background: rgba(99, 102, 241, 0.03);
+        border: 1px dashed rgba(99, 102, 241, 0.2);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      .cat-icon {
+        font-size: 100px;
+        filter: drop-shadow(0 0 25px rgba(99, 102, 241, 0.3));
+      }
+
+      /* Right Side: Chat Container */
+      .chat-container {
+        background: rgba(20, 20, 25, 0.4);
+        border-radius: 20px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+
+      .chat-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #a1a1aa;
+        letter-spacing: 1px;
+        padding-bottom: 12px;
+        border-b: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .chat-bubbles {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        flex-grow: 1;
+      }
+
+      .chat-bubble {
+        display: flex;
+        gap: 12px;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      .bubble-avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        shrink: 0;
+      }
+
+      .bubble-content {
+        background: rgba(39, 39, 42, 0.6);
+        border-radius: 0 16px 16px 16px;
+        padding: 12px 16px;
+        font-size: 16px;
+        line-height: 1.4;
+        color: #e4e4e7;
+        max-width: 320px;
+      }
+
+      .chat-bubble.student-a .bubble-avatar {
+        background: #10b981;
+      }
+
+      .chat-bubble.teacher .bubble-avatar {
+        background: linear-gradient(135deg, #7c3aed 0%, #6366f1 100%);
+      }
+
+      .chat-bubble.student-b .bubble-avatar {
+        background: #f59e0b;
+      }
+    </style>
+
+    <!-- Left: Teacher Info -->
+    <div class="teacher-card" id="card-left">
+      <div class="avatar" id="avatar-teacher">🎓</div>
+      <div class="teacher-info">
+        <div class="teacher-name">麦克老师</div>
+        <div class="teacher-title">AI 主讲教师</div>
+      </div>
+      <div class="voice-wave" id="wave">
+        <div class="wave-bar" id="wb1"></div>
+        <div class="wave-bar" id="wb2"></div>
+        <div class="wave-bar" id="wb3"></div>
+        <div class="wave-bar" id="wb4"></div>
+        <div class="wave-bar" id="wb5"></div>
+        <div class="wave-bar" id="wb6"></div>
+      </div>
+    </div>
+
+    <!-- Center: PPT Slide -->
+    <div class="slide-area" id="ppt-center">
+      <div class="slide-header">SLIDE 03 / 量子力学专题</div>
+      <div class="slide-title">薛定谔的猫：生死叠加态</div>
+      <div class="slide-content">
+        <div class="slide-bullet-list">
+          <div class="slide-bullet" id="b1">
+            <div class="bullet-dot"></div>
+            <div><strong>微观叠加</strong>：量子系统在未被测量前，处于所有可能状态的概率性共存（薛定谔波动方程）。</div>
+          </div>
+          <div class="slide-bullet" id="b2">
+            <div class="bullet-dot"></div>
+            <div><strong>波函数塌缩</strong>：引入外界测量仪器的瞬间，系统波函数将瞬间塌缩为其中一个确定性本征态。</div>
+          </div>
+        </div>
+        <div class="slide-visual" id="ppt-visual">
+          <div class="cat-icon">🐱📦</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Chat Box -->
+    <div class="chat-container" id="chat-right">
+      <div class="chat-title">💬 课堂实时研讨</div>
+      <div class="chat-bubbles">
+        <div class="chat-bubble student-a" id="cb1">
+          <div class="bubble-avatar">👨‍🎓</div>
+          <div class="bubble-content">
+            <strong>肖肖同学：</strong>老师，在被观测前，猫真的处于生死各半的叠加状态吗？
+          </div>
+        </div>
+        <div class="chat-bubble teacher" id="cb2">
+          <div class="bubble-avatar">🎓</div>
+          <div class="bubble-content">
+            <strong>麦克老师：</strong>没错，这是哥本哈根诠释的核心理念。波函数尚未塌缩，生死两态在物理上完全共存。
+          </div>
+        </div>
+        <div class="chat-bubble student-b" id="cb3">
+          <div class="bubble-avatar">👩‍🎓</div>
+          <div class="bubble-content">
+            <strong>小星助教：</strong>这太不可思议了，量子微观世界的机制完全颠覆了我们日常的宏观认知。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // Waveform Animation (calculated for duration 11s)
+      const bars = ["#wb1", "#wb2", "#wb3", "#wb4", "#wb5", "#wb6"];
+      const waveDur = 11;
+      bars.forEach((bar, idx) => {
+        const repeatCount = Math.ceil(waveDur / 0.8) - 1;
+        gsap.to(bar, {
+          height: 60 - idx * 6,
+          duration: 0.35 + idx * 0.08,
+          repeat: repeatCount,
+          yoyo: true,
+          ease: "power1.inOut"
+        });
+      });
+
+      // 1. Entrance of components
+      tl.from("#card-left", { x: -80, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.2);
+      tl.from("#ppt-center", { scale: 0.95, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.4);
+      tl.from("#chat-right", { x: 80, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.6);
+
+      // 2. Slide Content Animation (Bullet points & visuals)
+      tl.from("#b1", { opacity: 0, y: 15, duration: 0.5, ease: "power2.out" }, 1.2);
+      tl.from("#b2", { opacity: 0, y: 15, duration: 0.5, ease: "power2.out" }, 1.8);
+      tl.from("#ppt-visual", { scale: 0.8, opacity: 0, duration: 0.6, ease: "back.out" }, 1.5);
+
+      // 3. Discussion bubble triggers (timings: 3.0s, 6.0s, 8.5s)
+      tl.to("#cb1", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 3.0);
+      tl.to("#cb2", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 6.0);
+      tl.to("#cb3", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 8.5);
+
+      // 4. Cat pulse idle motion (duration 11s)
+      tl.to(".cat-icon", { scale: 1.06, duration: 1.2, repeat: 4, yoyo: true, ease: "sine.inOut" }, 2.0);
+
+      window.__timelines["03-multi_agent"] = tl;
+    </script>
+  </div>
+</template>

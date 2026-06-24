@@ -1,0 +1,302 @@
+<template id="04-interactive-template">
+  <div id="04-interactive" data-composition-id="04-interactive" data-width="1920" data-height="1080">
+    <style>
+      #04-interactive {
+        width: 100%;
+        height: 100%;
+        background: #09090b;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        padding: 80px 100px;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+        color: #ffffff;
+        overflow: hidden;
+      }
+
+      /* Base card styles */
+      .panel-card {
+        background: rgba(20, 20, 25, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 24px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        box-sizing: border-box;
+        position: relative;
+      }
+
+      .panel-label {
+        font-size: 16px;
+        font-weight: 700;
+        color: #a1a1aa;
+        margin-bottom: 24px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      /* Left Side: 3D Simulation Mockup */
+      .simulation-area {
+        flex-grow: 1;
+        background: #0d0d11;
+        border: 1px solid rgba(99, 102, 241, 0.15);
+        border-radius: 16px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .canvas-container {
+        position: relative;
+        width: 400px;
+        height: 400px;
+      }
+
+      .star-center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #f59e0b 0%, #d97706 70%);
+        box-shadow: 0 0 35px rgba(245, 158, 11, 0.8);
+      }
+
+      .orbit {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 1px dashed rgba(99, 102, 241, 0.2);
+        border-radius: 50%;
+      }
+
+      .orbit-1 { width: 180px; height: 180px; }
+      .orbit-2 { width: 300px; height: 300px; }
+
+      .planet {
+        position: absolute;
+        border-radius: 50%;
+        transform-origin: 50% 50%;
+      }
+
+      .planet-1 {
+        width: 16px;
+        height: 16px;
+        background: radial-gradient(circle, #6366f1 0%, #4338ca 70%);
+        box-shadow: 0 0 10px rgba(99, 102, 241, 0.6);
+        top: 50%;
+        left: 50%;
+        margin-top: -8px;
+        margin-left: -8px;
+      }
+
+      .planet-2 {
+        width: 24px;
+        height: 24px;
+        background: radial-gradient(circle, #ec4899 0%, #be185d 70%);
+        box-shadow: 0 0 15px rgba(236, 72, 153, 0.6);
+        top: 50%;
+        left: 50%;
+        margin-top: -12px;
+        margin-left: -12px;
+      }
+
+      /* Right Side: Interactive Quiz Card */
+      .quiz-card {
+        transition: border 0.4s;
+      }
+
+      .quiz-card.completed {
+        border-color: rgba(16, 185, 129, 0.4);
+        box-shadow: 0 15px 45px rgba(16, 185, 129, 0.08);
+      }
+
+      .quiz-question {
+        font-size: 26px;
+        font-weight: 700;
+        line-height: 1.5;
+        margin-bottom: 30px;
+        color: #ffffff;
+      }
+
+      .options-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .option-item {
+        background: rgba(39, 39, 42, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 14px;
+        padding: 20px 24px;
+        font-size: 18px;
+        font-weight: 500;
+        color: #d4d4d8;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: all 0.3s ease;
+      }
+
+      .option-item.hovered {
+        border-color: rgba(124, 58, 237, 0.3);
+        background: rgba(124, 58, 237, 0.05);
+      }
+
+      .option-item.selected {
+        background: rgba(16, 185, 129, 0.1);
+        border-color: #10b981;
+        color: #10b981;
+        font-weight: 600;
+        box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+      }
+
+      .option-badge {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: #a1a1aa;
+        transition: all 0.3s;
+      }
+
+      .option-item.selected .option-badge {
+        background: #10b981;
+        border-color: #10b981;
+        color: white;
+      }
+
+      /* Mockup cursor pointer */
+      .fake-cursor {
+        position: absolute;
+        width: 36px;
+        height: 36px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' stroke='black' stroke-width='1.5'%3E%3Cpath d='M3 3l7.07 16.97 2.51-6.73 6.73-2.51L3 3z'/%3E%3C/svg%3E");
+        background-size: contain;
+        background-repeat: no-repeat;
+        pointer-events: none;
+        z-index: 100;
+        opacity: 0;
+        top: 600px;
+        left: 400px;
+      }
+    </style>
+
+    <!-- Left: 3D Simulation Panel -->
+    <div class="panel-card" id="card-left">
+      <div class="panel-label">🧪 互动式模拟实验 (HTML Sandbox)</div>
+      <div class="simulation-area">
+        <div class="canvas-container">
+          <div class="star-center"></div>
+          <div class="orbit orbit-1"></div>
+          <div class="orbit orbit-2"></div>
+          
+          <!-- Planet 1 container to revolve -->
+          <div class="planet planet-1" id="p1" style="transform: rotate(0deg) translate(90px) rotate(0deg);"></div>
+          <!-- Planet 2 container to revolve -->
+          <div class="planet planet-2" id="p2" style="transform: rotate(180deg) translate(150px) rotate(-180deg);"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Quiz card -->
+    <div class="panel-card quiz-card" id="card-right">
+      <div class="panel-label">📝 课堂随堂练习</div>
+      <div class="quiz-question">以下哪项是微观粒子所特有的量子物理性质？</div>
+      <div class="options-list">
+        <div class="option-item" id="opt-a">
+          <span>A. 波粒二象性与叠加态</span>
+          <div class="option-badge" id="badge-a">A</div>
+        </div>
+        <div class="option-item" id="opt-b">
+          <span>B. 经典绝对时空膨胀</span>
+          <div class="option-badge">B</div>
+        </div>
+        <div class="option-item" id="opt-c">
+          <span>C. 能量的绝对连续传播</span>
+          <div class="option-badge">C</div>
+        </div>
+      </div>
+
+      <!-- Fake Mouse Cursor -->
+      <div class="fake-cursor" id="cursor"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // Orbit Planet Revolutions (duration 11s)
+      const p1Obj = { angle: 0 };
+      const p2Obj = { angle: 180 };
+      const loopDur = 11;
+      
+      const rep1 = Math.ceil(loopDur / 4.0) - 1;
+      const rep2 = Math.ceil(loopDur / 8.0) - 1;
+      
+      gsap.to(p1Obj, {
+        angle: 360,
+        duration: 4.0,
+        repeat: rep1,
+        ease: "none",
+        onUpdate: () => {
+          const rotation = p1Obj.angle;
+          document.getElementById("p1").style.transform = `rotate(${rotation}deg) translate(90px) rotate(-${rotation}deg)`;
+        }
+      });
+      gsap.to(p2Obj, {
+        angle: 540,
+        duration: 8.0,
+        repeat: rep2,
+        ease: "none",
+        onUpdate: () => {
+          const rotation = p2Obj.angle;
+          document.getElementById("p2").style.transform = `rotate(${rotation}deg) translate(150px) rotate(-${rotation}deg)`;
+        }
+      });
+
+      // 1. Panel Entrances
+      tl.from("#card-left", { x: -80, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.2);
+      tl.from("#card-right", { x: 80, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.4);
+      tl.from(".option-item", { opacity: 0, y: 15, stagger: 0.15, duration: 0.5, ease: "power2.out" }, 1.0);
+
+      // 2. Simulate mouse movement to select Option A
+      // cursor start coordinate: absolute relative in quiz card
+      tl.set("#cursor", { x: 600, y: 400, opacity: 0 }, 2.0);
+      tl.to("#cursor", { opacity: 1, duration: 0.2 }, 2.0);
+      
+      // Move to option A (relative location in card)
+      // option A is roughly at y = 140, x = 150
+      tl.to("#cursor", { x: 300, y: 220, duration: 1.5, ease: "power2.inOut" }, 2.2);
+
+      // 3. Trigger hover state on A
+      tl.set("#opt-a", { className: "option-item hovered" }, 3.5);
+      
+      // 4. Click Trigger (pulse mouse pointer & highlight select)
+      tl.to("#cursor", { scale: 0.8, duration: 0.1, yoyo: true, repeat: 1 }, 3.8);
+      tl.set("#opt-a", { className: "option-item selected" }, 3.9);
+      tl.set("#badge-a", { textContent: "✓" }, 3.9);
+      tl.set("#card-right", { className: "panel-card quiz-card completed" }, 3.9);
+
+      // 5. Fade out mouse cursor
+      tl.to("#cursor", { opacity: 0, duration: 0.3 }, 4.3);
+
+      window.__timelines["04-interactive"] = tl;
+    </script>
+  </div>
+</template>

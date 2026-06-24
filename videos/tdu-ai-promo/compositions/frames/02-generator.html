@@ -1,0 +1,255 @@
+<template id="02-generator-template">
+  <div id="02-generator" data-composition-id="02-generator" data-width="1920" data-height="1080">
+    <style>
+      #02-generator {
+        width: 100%;
+        height: 100%;
+        background: #09090b;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        font-family: 'Inter', sans-serif;
+        color: #ffffff;
+      }
+
+      /* Light background glow */
+      .bg-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 1000px;
+        height: 1000px;
+        background: radial-gradient(circle, rgba(124, 58, 237, 0.08) 0%, transparent 60%);
+        pointer-events: none;
+      }
+
+      /* Interactive Input Box Mockup */
+      .input-box {
+        width: 760px;
+        background: rgba(20, 20, 25, 0.8);
+        border: 2px solid #3f3f46;
+        border-radius: 20px;
+        padding: 24px 32px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        z-index: 10;
+        margin-bottom: 50px;
+      }
+
+      .input-text {
+        font-size: 28px;
+        font-weight: 500;
+        color: #e4e4e7;
+        flex-grow: 1;
+        min-height: 36px;
+        display: flex;
+        align-items: center;
+      }
+
+      .cursor {
+        display: inline-block;
+        width: 3px;
+        height: 30px;
+        background: #7c3aed;
+        margin-left: 6px;
+      }
+
+      .generate-btn {
+        background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+        padding: 12px 28px;
+        border-radius: 12px;
+        font-size: 20px;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+      }
+
+      /* Task Nodes Area */
+      .tasks-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 600px;
+        z-index: 10;
+        opacity: 0;
+      }
+
+      .task-item {
+        background: rgba(27, 27, 36, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        padding: 16px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 22px;
+        color: #a1a1aa;
+      }
+
+      .task-item.active {
+        border-color: rgba(99, 102, 241, 0.3);
+        color: #ffffff;
+      }
+
+      .task-item.done {
+        border-color: rgba(16, 185, 129, 0.3);
+        color: #e4e4e7;
+      }
+
+      .checkbox {
+        width: 28px;
+        height: 28px;
+        border: 2px solid #52525b;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+      }
+
+      .task-item.done .checkbox {
+        background: #10b981;
+        border-color: #10b981;
+      }
+
+      .checkmark {
+        display: none;
+        width: 12px;
+        height: 7px;
+        border-left: 2px solid white;
+        border-bottom: 2px solid white;
+        transform: rotate(-45deg) translate(1px, -1px);
+      }
+
+      .task-item.done .checkmark {
+        display: block;
+      }
+
+      /* Progress Bar */
+      .progress-wrapper {
+        width: 600px;
+        height: 8px;
+        background: #27272a;
+        border-radius: 4px;
+        overflow: hidden;
+        z-index: 10;
+        opacity: 0;
+        margin-top: 24px;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, #7c3aed, #10b981);
+        transform-origin: left;
+        transform: scaleX(0);
+      }
+
+      /* Pulse ring */
+      .pulse-ring {
+        position: absolute;
+        width: 800px;
+        height: 800px;
+        border: 2px solid rgba(124, 58, 237, 0.3);
+        border-radius: 50%;
+        pointer-events: none;
+        opacity: 0;
+        transform: scale(0.1);
+        z-index: 5;
+      }
+    </style>
+
+    <div class="bg-glow"></div>
+    <div class="pulse-ring" id="pulse"></div>
+
+    <!-- Input Phase -->
+    <div class="input-box" id="box">
+      <div class="input-text" id="prompt-txt">
+        <span id="text-holder"></span>
+        <span class="cursor" id="input-cursor"></span>
+      </div>
+      <div class="generate-btn">一键生成</div>
+    </div>
+
+    <!-- Build Phase -->
+    <div class="tasks-container" id="tasks">
+      <div class="task-item" id="t1">
+        <span>🔍 检索大纲教案与参考文献</span>
+        <div class="checkbox"><div class="checkmark"></div></div>
+      </div>
+      <div class="task-item" id="t2">
+        <span>📝 自动排版演示幻灯片</span>
+        <div class="checkbox"><div class="checkmark"></div></div>
+      </div>
+      <div class="task-item" id="t3">
+        <span>🎙️ 合成多智能体授课语音</span>
+        <div class="checkbox"><div class="checkmark"></div></div>
+      </div>
+    </div>
+
+    <div class="progress-wrapper" id="progress-container">
+      <div class="progress-bar" id="p-bar"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // Cursor blink
+      gsap.to("#input-cursor", { opacity: 0, duration: 0.5, repeat: 19, yoyo: true }); // repeat = duration (10s) / 0.5 - 1
+
+      // 1. Entrance of Input Box
+      tl.from("#box", { y: 50, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.2);
+
+      // 2. Typing animation (simulate prompt typing)
+      const textObj = { val: "" };
+      const promptStr = "量子力学与薛定谔的猫";
+      
+      tl.to(textObj, {
+        duration: 1.8,
+        onUpdate: () => {
+          const charCount = Math.floor(textObj.val * promptStr.length);
+          document.getElementById("text-holder").textContent = promptStr.slice(0, charCount);
+        },
+        ease: "none",
+        val: 1
+      }, 1.2);
+
+      // 3. Pulse Trigger (click/enter)
+      tl.to("#box", { scale: 0.96, duration: 0.15, yoyo: true, repeat: 1 }, 3.2);
+      tl.to("#pulse", { opacity: 1, scale: 1.3, duration: 0.5, ease: "expo.out" }, 3.3);
+      tl.to("#pulse", { opacity: 0, duration: 0.3 }, 3.8);
+
+      // 4. Switch to build phase
+      tl.to("#box", { y: -50, scale: 0.85, opacity: 0, duration: 0.5, ease: "power2.in" }, 3.6);
+      
+      // 5. Tasks slide up
+      tl.to("#tasks", { opacity: 1, duration: 0.4 }, 4.0);
+      tl.from("#tasks", { y: 40, duration: 0.6, ease: "power3.out" }, 4.0);
+      tl.to("#progress-container", { opacity: 1, duration: 0.4 }, 4.2);
+
+      // 6. Node 1 processing & check
+      tl.set("#t1", { className: "task-item active" }, 4.2);
+      tl.to("#p-bar", { scaleX: 0.33, duration: 1.2, ease: "power1.inOut" }, 4.2);
+      tl.set("#t1", { className: "task-item done" }, 5.4);
+
+      // 7. Node 2 processing & check
+      tl.set("#t2", { className: "task-item active" }, 5.4);
+      tl.to("#p-bar", { scaleX: 0.66, duration: 1.2, ease: "power1.inOut" }, 5.4);
+      tl.set("#t2", { className: "task-item done" }, 6.6);
+
+      // 8. Node 3 processing & check
+      tl.set("#t3", { className: "task-item active" }, 6.61);
+      tl.to("#p-bar", { scaleX: 1.0, duration: 1.5, ease: "power1.inOut" }, 6.61);
+      tl.set("#t3", { className: "task-item done" }, 8.1);
+
+      window.__timelines["02-generator"] = tl;
+    </script>
+  </div>
+</template>

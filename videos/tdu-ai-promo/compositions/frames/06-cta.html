@@ -1,0 +1,149 @@
+<template id="06-cta-template">
+  <div id="06-cta" data-composition-id="06-cta" data-width="1920" data-height="1080">
+    <style>
+      #06-cta {
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at center, #1b153a 0%, #09090b 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        font-family: 'Outfit', 'Inter', sans-serif;
+        color: #ffffff;
+      }
+
+      /* Grid Overlay */
+      .grid-overlay {
+        position: absolute;
+        inset: 0;
+        background-image: 
+          linear-gradient(rgba(124, 58, 237, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(124, 58, 237, 0.04) 1px, transparent 1px);
+        background-size: 60px 60px;
+        background-position: center;
+        mask-image: radial-gradient(circle at center, black, transparent 90%);
+        pointer-events: none;
+      }
+
+      .logo-img {
+        height: 110px;
+        filter: drop-shadow(0 0 25px rgba(124, 58, 237, 0.6));
+        margin-bottom: 40px;
+        z-index: 10;
+      }
+
+      /* Central Card containing URL & description */
+      .cta-card {
+        background: linear-gradient(135deg, rgba(20, 20, 28, 0.8) 0%, rgba(10, 10, 15, 0.9) 100%);
+        border: 2px solid rgba(124, 58, 237, 0.3);
+        border-radius: 28px;
+        padding: 44px 80px;
+        width: 800px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(124, 58, 237, 0.15);
+        z-index: 10;
+        text-align: center;
+      }
+
+      .cta-desc {
+        font-size: 24px;
+        color: #a5b4fc;
+        font-weight: 500;
+        letter-spacing: 2px;
+      }
+
+      .cta-url {
+        font-size: 58px;
+        font-weight: 800;
+        background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: 2px;
+        filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.4));
+      }
+
+      .cta-button {
+        background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+        color: white;
+        padding: 16px 44px;
+        border-radius: 14px;
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        box-shadow: 0 5px 25px rgba(124, 58, 237, 0.4);
+        margin-top: 10px;
+      }
+
+      /* Ambient light */
+      .ambient-glow {
+        position: absolute;
+        width: 800px;
+        height: 800px;
+        background: radial-gradient(circle, rgba(124, 58, 237, 0.12) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      /* Particle floating */
+      .particle {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #6366f1;
+        filter: blur(1px);
+        opacity: 0.5;
+        z-index: 5;
+      }
+    </style>
+
+    <div class="grid-overlay"></div>
+    <div class="ambient-glow" id="glow"></div>
+
+    <div class="particle" id="p1" style="top: 15%; left: 30%;"></div>
+    <div class="particle" id="p2" style="top: 80%; left: 25%;"></div>
+    <div class="particle" id="p3" style="top: 25%; left: 70%;"></div>
+    <div class="particle" id="p4" style="top: 75%; left: 75%;"></div>
+
+    <img src="tdu-logo-horizontal.png" alt="TDu AI 互动课堂" class="logo-img" id="logo-cta" />
+
+    <div class="cta-card" id="card-cta">
+      <div class="cta-desc" id="desc-cta">下一代 AI 互动课堂 · 让学习更加沉浸与有趣</div>
+      <div class="cta-url" id="url-cta">open.maic.chat</div>
+      <div class="cta-button" id="btn-cta">立即免费体验</div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // 1. Entrance Animations
+      tl.from("#logo-cta", { scale: 1.12, opacity: 0, duration: 1.0, ease: "power3.out" }, 0.3);
+      tl.from("#card-cta", { scale: 0.9, opacity: 0, duration: 1.0, ease: "back.out(1.5)" }, 0.6);
+      
+      tl.from("#desc-cta", { y: -20, opacity: 0, duration: 0.6, ease: "power2.out" }, 1.2);
+      tl.from("#url-cta", { scale: 0.95, opacity: 0, duration: 0.8, ease: "power3.out" }, 1.4);
+      tl.from("#btn-cta", { y: 25, opacity: 0, duration: 0.6, ease: "back.out" }, 1.7);
+      
+      tl.from(".particle", { scale: 0, opacity: 0, stagger: 0.1, duration: 0.6 }, 0.8);
+
+      // 2. Idle Floating (duration 9s)
+      tl.to("#logo-cta", { y: -6, duration: 3.0, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.3);
+      tl.to("#card-cta", { y: 6, duration: 3.5, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.0);
+      tl.to("#glow", { x: -30, y: 30, duration: 4.0, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.0);
+      
+      // Button pulse
+      tl.to("#btn-cta", { scale: 1.05, duration: 0.8, repeat: 3, yoyo: true, ease: "sine.inOut" }, 2.0);
+
+      window.__timelines["06-cta"] = tl;
+    </script>
+  </div>
+</template>

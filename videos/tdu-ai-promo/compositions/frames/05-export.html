@@ -1,0 +1,321 @@
+<template id="05-export-template">
+  <div id="05-export" data-composition-id="05-export" data-width="1920" data-height="1080">
+    <style>
+      #05-export {
+        width: 100%;
+        height: 100%;
+        background: #09090b;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        padding: 80px 100px;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+        color: #ffffff;
+        overflow: hidden;
+      }
+
+      /* Card layout */
+      .panel-card {
+        background: rgba(20, 20, 25, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 24px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        box-sizing: border-box;
+      }
+
+      .panel-label {
+        font-size: 16px;
+        font-weight: 700;
+        color: #a1a1aa;
+        margin-bottom: 30px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      /* Left Panel: Export Flow */
+      .export-container {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 24px;
+      }
+
+      .export-item {
+        background: rgba(39, 39, 42, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        border-radius: 16px;
+        padding: 24px;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        transform: scale(1);
+        transition: all 0.3s;
+      }
+
+      .export-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        font-weight: 800;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .ppt-icon {
+        background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+        color: #ffffff;
+      }
+
+      .html-icon {
+        background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+        color: #ffffff;
+      }
+
+      .export-details {
+        flex-grow: 1;
+      }
+
+      .export-title {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+
+      .export-desc {
+        font-size: 15px;
+        color: #a1a1aa;
+      }
+
+      .download-badge {
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid #10b981;
+        color: #10b981;
+        border-radius: 8px;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 600;
+        opacity: 0;
+        transform: scale(0.8);
+      }
+
+      /* Right Panel: Lark/Slack Chat Integration */
+      .chat-window {
+        flex-grow: 1;
+        background: #0f1015;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        overflow: hidden;
+      }
+
+      .chat-header {
+        font-size: 15px;
+        color: #a1a1aa;
+        font-weight: 600;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #10b981;
+      }
+
+      .message-row {
+        display: flex;
+        gap: 12px;
+        width: 100%;
+      }
+
+      .message-row.user {
+        justify-content: flex-end;
+      }
+
+      .user-bubble {
+        background: #7c3aed;
+        color: white;
+        border-radius: 16px 16px 0 16px;
+        padding: 12px 18px;
+        font-size: 16px;
+        max-width: 80%;
+      }
+
+      .bot-bubble {
+        background: #1e1e24;
+        color: #e4e4e7;
+        border-radius: 0 16px 16px 16px;
+        padding: 12px 18px;
+        font-size: 16px;
+        max-width: 80%;
+      }
+
+      /* OpenClaw interactive card in Lark */
+      .claw-card {
+        background: rgba(30, 30, 40, 0.6);
+        border: 1px solid rgba(124, 58, 237, 0.3);
+        border-radius: 16px;
+        padding: 20px;
+        width: 85%;
+        margin-left: 56px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+      }
+
+      .card-top {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .card-logo {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+      }
+
+      .card-title {
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .card-btn {
+        background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+        border-radius: 10px;
+        padding: 10px 0;
+        font-size: 15px;
+        font-weight: 600;
+        text-align: center;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+      }
+    </style>
+
+    <!-- Left Column: Export Cards -->
+    <div class="panel-card" id="card-left">
+      <div class="panel-label">💾 灵活的多格式离线导出</div>
+      <div class="export-container">
+        <!-- PPTX -->
+        <div class="export-item" id="item-ppt">
+          <div class="export-icon ppt-icon">P</div>
+          <div class="export-details">
+            <div class="export-title">可编辑 PowerPoint (.pptx)</div>
+            <div class="export-desc">下载完整的幻灯片，在本地自由二次修改编辑。</div>
+          </div>
+          <div class="download-badge" id="badge-ppt">已下载 ✓</div>
+        </div>
+        
+        <!-- HTML -->
+        <div class="export-item" id="item-html">
+          <div class="export-icon html-icon">H</div>
+          <div class="export-details">
+            <div class="export-title">交互式网页安装包 (.html)</div>
+            <div class="export-desc">完美打包整门课堂，无需网络随时进行离线教学。</div>
+          </div>
+          <div class="download-badge" id="badge-html">已下载 ✓</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: OpenClaw Chat Window -->
+    <div class="panel-card" id="card-right">
+      <div class="panel-label">🤖 OpenClaw 聊天生态支持</div>
+      <div class="chat-window">
+        <div class="chat-header">
+          <div class="status-dot"></div>
+          <span>飞书 · AI 助手 (Claw)</span>
+        </div>
+
+        <div class="message-row user" id="user-msg-row" style="opacity:0;">
+          <div class="user-bubble">
+            <span id="user-text"></span>
+          </div>
+        </div>
+
+        <div class="message-row" id="bot-msg-row" style="opacity:0;">
+          <div class="bot-bubble">正在为您一键构建“量子力学互动课堂”...</div>
+        </div>
+
+        <!-- Simulated Rich Card -->
+        <div class="claw-card" id="rich-card">
+          <div class="card-top">
+            <div class="card-logo">🎓</div>
+            <div class="card-title">量子力学与薛定谔的猫 互动课堂</div>
+          </div>
+          <div class="export-desc">
+            您的 AI 课堂已成功生成！包含了 12 页幻灯片、2 项 3D 物理模拟以及随堂测验题卡。由麦克老师和肖肖同学为您倾情开课。
+          </div>
+          <div class="card-btn">点击进入课堂</div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // 1. Entrance of Panels
+      tl.from("#card-left", { x: -80, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.2);
+      tl.from("#card-right", { x: 80, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.4);
+
+      // 2. Export downloads animation
+      tl.from("#item-ppt", { x: -40, opacity: 0, duration: 0.5 }, 1.0);
+      tl.from("#item-html", { x: -40, opacity: 0, duration: 0.5 }, 1.5);
+      
+      // Badges reveal
+      tl.to("#badge-ppt", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out" }, 2.0);
+      tl.to("#badge-html", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out" }, 2.4);
+
+      // 3. Lark Integration Animation
+      // Show user message row
+      tl.set("#user-msg-row", { opacity: 1 }, 3.0);
+      // Typewriter simulator
+      const chatTxtObj = { val: 0 };
+      const chatStr = "教我量子物理";
+      tl.to(chatTxtObj, {
+        duration: 1.2,
+        onUpdate: () => {
+          const charCount = Math.floor(chatTxtObj.val * chatStr.length);
+          document.getElementById("user-text").textContent = chatStr.slice(0, charCount);
+        },
+        ease: "none",
+        val: 1
+      }, 3.0);
+
+      // Bot typing & card response (timings: 4.8s, 6.0s)
+      tl.to("#bot-msg-row", { opacity: 1, duration: 0.4 }, 4.8);
+      tl.to("#rich-card", { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "back.out" }, 6.0);
+
+      // Button glow loop (calculated for duration 10s)
+      tl.to(".card-btn", { scale: 1.04, duration: 0.8, repeat: 3, yoyo: true, ease: "sine.inOut" }, 6.8);
+
+      window.__timelines["05-export"] = tl;
+    </script>
+  </div>
+</template>
