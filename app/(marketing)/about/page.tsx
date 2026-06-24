@@ -22,9 +22,10 @@ export default function AboutPage() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="p-8 bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-3xl space-y-4"
+          transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+          className="p-8 glass-card glass-card-hover glow-border-hover rounded-3xl space-y-4"
         >
-          <div className="w-12 h-12 rounded-xl bg-violet-100 dark:bg-violet-950/40 text-violet-600 dark:text-violet-400 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-xl bg-violet-100/50 dark:bg-violet-950/30 text-violet-600 dark:text-violet-400 flex items-center justify-center shadow-inner shadow-violet-500/10">
             <Compass size={24} />
           </div>
           <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
@@ -39,10 +40,10 @@ export default function AboutPage() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="p-8 bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-3xl space-y-4"
+          transition={{ type: 'spring', stiffness: 100, damping: 20, delay: 0.1 }}
+          className="p-8 glass-card glass-card-hover glow-border-hover rounded-3xl space-y-4"
         >
-          <div className="w-12 h-12 rounded-xl bg-violet-100 dark:bg-violet-950/40 text-violet-600 dark:text-violet-400 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-xl bg-violet-100/50 dark:bg-violet-950/30 text-violet-600 dark:text-violet-400 flex items-center justify-center shadow-inner shadow-violet-500/10">
             <BookOpen size={24} />
           </div>
           <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
@@ -57,7 +58,7 @@ export default function AboutPage() {
               rel="noopener noreferrer"
               className="text-violet-600 dark:text-violet-400 hover:underline mt-2 inline-block font-semibold"
             >
-              阅读学术论文 &rarr;
+              {t('aboutPage.academic.readPaper')}
             </a>
           </p>
         </motion.div>
@@ -66,30 +67,32 @@ export default function AboutPage() {
       {/* Team (Placeholders) */}
       <div className="space-y-12">
         <div className="text-center max-w-xl mx-auto space-y-2">
-          <div className="w-10 h-10 rounded-full bg-violet-50 dark:bg-violet-950/30 text-violet-600 dark:text-violet-400 flex items-center justify-center mx-auto">
+          <div className="w-10 h-10 rounded-full bg-violet-50 dark:bg-violet-950/30 text-violet-600 dark:text-violet-400 flex items-center justify-center mx-auto shadow-inner shadow-violet-500/10">
             <Users size={20} />
           </div>
-          <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">核心研发团队</h3>
-          <p className="text-zinc-600 dark:text-zinc-400 text-sm">由清华大学多智能体研究团队及开源社区贡献者联合开发</p>
+          <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">{t('aboutPage.team.title')}</h3>
+          <p className="text-zinc-600 dark:text-zinc-400 text-sm">{t('aboutPage.team.desc')}</p>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {[
-            { name: '李教授', role: '课题组负责人 / 学术指导' },
-            { name: '王博士', role: '多智能体系统核心架构师' },
-            { name: '张工', role: '平台全栈主开发' },
-            { name: '社区贡献者', role: '开源生态建设者' },
+            { name: t('aboutPage.team.member1.name'), role: t('aboutPage.team.member1.role') },
+            { name: t('aboutPage.team.member2.name'), role: t('aboutPage.team.member2.role') },
+            { name: t('aboutPage.team.member3.name'), role: t('aboutPage.team.member3.role') },
+            { name: t('aboutPage.team.member4.name'), role: t('aboutPage.team.member4.role') },
           ].map((member, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: idx * 0.05 }}
-              className="p-6 text-center space-y-3 bg-zinc-50/50 dark:bg-zinc-900/50 rounded-2xl border border-zinc-100/50 dark:border-zinc-800/50"
+              transition={{ type: 'spring', stiffness: 100, damping: 20, delay: idx * 0.05 }}
+              className="p-6 text-center space-y-3 glass-card glass-card-hover glow-border-hover rounded-2xl transition-all duration-300 shadow-sm group"
             >
-              <div className="w-16 h-16 rounded-full bg-violet-100 dark:bg-violet-950/40 text-violet-600 dark:text-violet-400 flex items-center justify-center mx-auto text-xl font-bold">
-                {member.name.charAt(0)}
+              <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-violet-500 to-indigo-500 p-[2px] mx-auto shadow-md shadow-violet-500/10 transition-transform duration-500 group-hover:rotate-180">
+                <div className="w-full h-full rounded-full bg-white dark:bg-zinc-950 flex items-center justify-center text-violet-600 dark:text-violet-400 text-xl font-bold transition-colors">
+                  {member.name.charAt(0)}
+                </div>
               </div>
               <div>
                 <h4 className="text-base font-bold text-zinc-900 dark:text-zinc-50">{member.name}</h4>
@@ -101,15 +104,15 @@ export default function AboutPage() {
       </div>
 
       {/* Partners / Academic support */}
-      <div className="space-y-12 bg-zinc-50/30 dark:bg-zinc-900/10 border border-zinc-100 dark:border-zinc-900 rounded-3xl p-8 text-center">
+      <div className="space-y-12 glass-card rounded-3xl p-8 text-center glow-border shadow-inner shadow-violet-500/[0.01]">
         <div className="flex items-center justify-center gap-2 text-violet-600 dark:text-violet-400">
           <Award size={18} />
-          <span className="text-sm font-semibold tracking-wider uppercase">学术支持与合作单位</span>
+          <span className="text-sm font-semibold tracking-wider uppercase">{t('aboutPage.partners.title')}</span>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-12 opacity-70">
-          <span className="text-lg font-extrabold tracking-widest text-zinc-400 dark:text-zinc-600">清华大学</span>
-          <span className="text-lg font-extrabold tracking-widest text-zinc-400 dark:text-zinc-600">智能技术与系统国家重点实验室</span>
-          <span className="text-lg font-extrabold tracking-widest text-zinc-400 dark:text-zinc-600">JCST 编辑部</span>
+          <span className="text-lg font-extrabold tracking-widest text-zinc-400 dark:text-zinc-600 hover:text-violet-500 dark:hover:text-violet-400 transition-colors cursor-default">{t('aboutPage.partners.tsinghua')}</span>
+          <span className="text-lg font-extrabold tracking-widest text-zinc-400 dark:text-zinc-600 hover:text-violet-500 dark:hover:text-violet-400 transition-colors cursor-default">{t('aboutPage.partners.lab')}</span>
+          <span className="text-lg font-extrabold tracking-widest text-zinc-400 dark:text-zinc-600 hover:text-violet-500 dark:hover:text-violet-400 transition-colors cursor-default">{t('aboutPage.partners.jcst')}</span>
         </div>
       </div>
     </div>

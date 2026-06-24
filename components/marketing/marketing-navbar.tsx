@@ -39,7 +39,7 @@ export function MarketingNavbar() {
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent',
         scrolled
-          ? 'bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md shadow-sm border-zinc-100 dark:border-zinc-900 py-3'
+          ? 'bg-white/70 dark:bg-zinc-950/70 backdrop-blur-xl saturate-[1.2] shadow-sm shadow-violet-500/[0.02] border-zinc-200/50 dark:border-zinc-800/40 py-3'
           : 'bg-transparent py-5'
       )}
     >
@@ -62,13 +62,20 @@ export function MarketingNavbar() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  'text-sm font-medium transition-colors hover:text-violet-600 dark:hover:text-violet-400',
+                  'text-sm font-semibold transition-colors relative py-1 hover:text-violet-600 dark:hover:text-violet-400',
                   isActive
                     ? 'text-violet-600 dark:text-violet-400'
                     : 'text-zinc-600 dark:text-zinc-400'
                 )}
               >
                 {link.label}
+                {isActive && (
+                  <motion.div
+                    layoutId="activeNavBorder"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-violet-500 to-indigo-500 rounded-full"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
+                )}
               </Link>
             );
           })}

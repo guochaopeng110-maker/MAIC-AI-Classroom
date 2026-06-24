@@ -56,10 +56,10 @@ export default function FeaturesPage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: idx * 0.05 }}
-            className="p-8 bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-3xl space-y-4 hover:border-violet-500/30 dark:hover:border-violet-500/20 transition-all group"
+            transition={{ type: 'spring', stiffness: 100, damping: 20, delay: idx * 0.05 }}
+            className="p-8 glass-card glass-card-hover glow-border-hover rounded-3xl space-y-4 transition-all group"
           >
-            <div className="w-14 h-14 rounded-2xl bg-violet-100 dark:bg-violet-950/40 text-violet-600 dark:text-violet-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <div className="w-14 h-14 rounded-2xl bg-violet-100/50 dark:bg-violet-950/30 text-violet-600 dark:text-violet-400 flex items-center justify-center group-hover:scale-105 transition-all shadow-inner shadow-violet-500/10">
               {feat.icon}
             </div>
             <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-50">{feat.title}</h3>

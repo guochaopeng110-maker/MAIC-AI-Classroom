@@ -20,7 +20,8 @@ export function SectionHeading({ tag, title, subtitle, align = 'center' }: Secti
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="inline-block px-3 py-1 text-xs font-semibold tracking-wider text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-950/30 rounded-full uppercase mb-3"
+          transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+          className="inline-block px-3 py-1 text-xs font-semibold tracking-wider text-violet-600 dark:text-violet-400 bg-violet-50/50 dark:bg-violet-950/20 rounded-full border border-violet-100 dark:border-violet-900/50 uppercase mb-3 shadow-[0_0_15px_rgba(139,92,246,0.05)]"
         >
           {tag}
         </motion.span>
@@ -29,18 +30,20 @@ export function SectionHeading({ tag, title, subtitle, align = 'center' }: Secti
         initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.1 }}
-        className="text-3xl md:text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50"
+        transition={{ type: 'spring', stiffness: 150, damping: 20, delay: 0.1 }}
+        className="text-3xl md:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 leading-[1.2]"
       >
-        {title}
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-zinc-900 via-zinc-800 to-zinc-900 dark:from-zinc-50 dark:via-zinc-300 dark:to-zinc-50">
+          {title}
+        </span>
       </motion.h2>
       {subtitle && (
         <motion.p
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="mt-4 text-lg text-zinc-600 dark:text-zinc-400"
+          transition={{ type: 'spring', stiffness: 100, damping: 20, delay: 0.2 }}
+          className="mt-4 text-base md:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed"
         >
           {subtitle}
         </motion.p>

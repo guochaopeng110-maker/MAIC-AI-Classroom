@@ -44,15 +44,16 @@ export default function CasesPage() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: idx * 0.1 }}
-            className="group flex flex-col justify-between overflow-hidden rounded-3xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-violet-500/20 transition-all shadow-sm hover:shadow-md"
+            transition={{ type: 'spring', stiffness: 100, damping: 20, delay: idx * 0.1 }}
+            className="group flex flex-col justify-between overflow-hidden rounded-3xl glass-card glass-card-hover glow-border-hover transition-all duration-300 shadow-sm"
           >
             {/* Visual Header */}
-            <div className={`h-40 bg-gradient-to-br ${cs.color} p-6 flex flex-col justify-between text-white`}>
-              <span className="text-xs font-bold bg-white/20 backdrop-blur-md px-3 py-1 rounded-full w-max">
+            <div className={`h-40 bg-gradient-to-br ${cs.color} bg-[length:200%_auto] group-hover:animate-gradient-shift transition-all duration-500 p-6 flex flex-col justify-between text-white relative`}>
+              <div className="absolute inset-0 bg-black/5 dark:bg-black/10 mix-blend-overlay" />
+              <span className="text-xs font-bold bg-white/10 dark:bg-black/20 backdrop-blur-md px-3 py-1 rounded-full w-max border border-white/10 relative z-10">
                 {cs.tag}
               </span>
-              <h4 className="text-xl font-bold line-clamp-2">{cs.title}</h4>
+              <h4 className="text-xl font-bold line-clamp-2 relative z-10 tracking-tight">{cs.title}</h4>
             </div>
 
             {/* Content */}
@@ -62,7 +63,7 @@ export default function CasesPage() {
               </p>
               <div className="pt-4">
                 <CTAButton href="/app" variant="secondary" className="w-full text-xs py-2">
-                  开始生成类似课堂
+                  {t('casesPage.generateCta')}
                 </CTAButton>
               </div>
             </div>

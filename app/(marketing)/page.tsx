@@ -12,10 +12,11 @@ export default function LandingPage() {
   const { t } = useI18n();
 
   return (
-    <div className="relative overflow-hidden pb-16">
+    <div className="relative overflow-hidden pb-16 dot-grid-bg">
       {/* Decorative background glows */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-violet-400/20 dark:bg-violet-600/10 blur-[120px] pointer-events-none animate-pulse-slow" />
-      <div className="absolute bottom-[20%] right-[-10%] w-[45%] h-[45%] rounded-full bg-indigo-400/20 dark:bg-indigo-600/10 blur-[120px] pointer-events-none animate-pulse-slow" />
+      <div className="absolute top-[-15%] left-[-15%] w-[60%] h-[60%] rounded-full bg-violet-500/10 dark:bg-violet-600/5 blur-[160px] pointer-events-none animate-pulse-slow" />
+      <div className="absolute top-[20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-500/10 dark:bg-indigo-600/5 blur-[160px] pointer-events-none animate-pulse-slow [animation-delay:2s]" />
+      <div className="absolute bottom-[10%] left-[10%] w-[45%] h-[45%] rounded-full bg-purple-500/10 dark:bg-purple-600/5 blur-[140px] pointer-events-none animate-pulse-slow [animation-delay:4s]" />
 
       {/* Hero Section */}
       <section className="relative pt-10 pb-20 md:pt-16 md:pb-28">
@@ -23,16 +24,16 @@ export default function LandingPage() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ type: 'spring', stiffness: 100, damping: 20 }}
             className="space-y-6 max-w-4xl mx-auto"
           >
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold text-violet-700 dark:text-violet-300 bg-violet-50 dark:bg-violet-950/40 rounded-full border border-violet-100 dark:border-violet-900/50">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold text-violet-700 dark:text-violet-300 bg-violet-50/50 dark:bg-violet-950/20 rounded-full border border-violet-100 dark:border-violet-900/50 shadow-[0_0_15px_rgba(139,92,246,0.05)]">
               <Sparkles size={12} />
-              TDu AI 互动教学全新升级
+              {t('marketing.hero.badge')}
             </span>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.15]">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 via-indigo-600 to-purple-600 dark:from-violet-400 dark:via-indigo-400 dark:to-purple-400">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 via-indigo-600 to-purple-600 dark:from-violet-400 dark:via-indigo-400 dark:to-purple-400 bg-[length:200%_auto] animate-gradient-shift">
                 {t('marketing.hero.title')}
               </span>
             </h1>
@@ -72,8 +73,8 @@ export default function LandingPage() {
                 <div className="w-16 h-16 rounded-full bg-violet-600 text-white flex items-center justify-center shadow-lg shadow-violet-500/30 cursor-pointer hover:scale-105 transition-all">
                   <Play size={24} fill="currentColor" className="ml-1" />
                 </div>
-                <h3 className="text-xl font-bold text-white">点击观看 2 分钟演示视频</h3>
-                <p className="text-sm text-zinc-300">了解多智能体教师与学生如何实时语音互动授课，以及如何通过物理模型进行交互。</p>
+                <h3 className="text-xl font-bold text-white">{t('marketing.hero.demoTitle')}</h3>
+                <p className="text-sm text-zinc-300">{t('marketing.hero.demoDesc')}</p>
               </div>
             </div>
           </motion.div>
@@ -127,16 +128,17 @@ export default function LandingPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
             {/* Step lines connecting items */}
-            <div className="hidden md:block absolute top-12 left-[15%] right-[15%] h-0.5 bg-gradient-to-r from-violet-200 to-indigo-200 dark:from-violet-950 dark:to-indigo-950 -z-10" />
+            <div className="hidden md:block absolute top-12 left-[15%] right-[15%] h-0.5 bg-gradient-to-r from-violet-500 via-indigo-500 to-purple-500 bg-[length:200%_auto] animate-gradient-shift -z-10 opacity-60" />
 
             {/* Step 1 */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
+              transition={{ type: 'spring', stiffness: 100, damping: 20 }}
               className="text-center space-y-4"
             >
-              <div className="w-12 h-12 rounded-full bg-violet-600 text-white font-bold flex items-center justify-center mx-auto text-lg shadow-md shadow-violet-500/20">
+              <div className="w-12 h-12 rounded-full bg-violet-600 text-white font-bold flex items-center justify-center mx-auto text-lg shadow-lg shadow-violet-500/30 glow-border">
                 1
               </div>
               <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-50">{t('marketing.steps.step1')}</h3>
@@ -148,10 +150,10 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
+              transition={{ type: 'spring', stiffness: 100, damping: 20, delay: 0.1 }}
               className="text-center space-y-4"
             >
-              <div className="w-12 h-12 rounded-full bg-violet-600 text-white font-bold flex items-center justify-center mx-auto text-lg shadow-md shadow-violet-500/20">
+              <div className="w-12 h-12 rounded-full bg-violet-600 text-white font-bold flex items-center justify-center mx-auto text-lg shadow-lg shadow-violet-500/30 glow-border">
                 2
               </div>
               <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-50">{t('marketing.steps.step2')}</h3>
@@ -163,10 +165,10 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
+              transition={{ type: 'spring', stiffness: 100, damping: 20, delay: 0.2 }}
               className="text-center space-y-4"
             >
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-bold flex items-center justify-center mx-auto text-lg shadow-md">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-violet-600 via-indigo-600 to-purple-600 bg-[length:200%_auto] text-white font-bold flex items-center justify-center mx-auto text-lg shadow-lg shadow-violet-500/30 animate-glow-pulse">
                 3
               </div>
               <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-50">{t('marketing.steps.step3')}</h3>
@@ -183,17 +185,18 @@ export default function LandingPage() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="relative overflow-hidden bg-gradient-to-br from-violet-900 to-indigo-900 rounded-3xl p-8 md:p-16 text-center text-white shadow-xl shadow-indigo-500/10"
+            transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+            className="relative overflow-hidden bg-gradient-to-br from-zinc-950 via-violet-950 to-indigo-950 rounded-3xl p-8 md:p-16 text-center text-white shadow-2xl shadow-violet-500/15 border border-violet-500/20 glow-border"
           >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(139,92,246,0.3),transparent_60%)] pointer-events-none" />
             <div className="relative z-10 space-y-6 max-w-2xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">开启您的下一代互动教学体验</h2>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">{t('marketing.cta.title')}</h2>
               <p className="text-zinc-200 text-base md:text-lg">
-                无论您是高校教师、培训师，还是求知若渴的学生，TDuMAIC 都将为您提供极具吸引力的学习和讲授工具。
+                {t('marketing.cta.desc')}
               </p>
               <div className="pt-4">
                 <CTAButton href="/app" variant="primary" className="bg-white hover:bg-zinc-100 text-zinc-950 px-8 py-4 shadow-lg shadow-black/20">
-                  免费开始体验
+                  {t('marketing.cta.button')}
                   <ArrowUpRight size={18} className="ml-2 text-zinc-900" />
                 </CTAButton>
               </div>

@@ -18,13 +18,13 @@ export function FeatureCard({ icon, title, description, delay = 0 }: FeatureCard
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay }}
       whileHover={{ y: -5 }}
-      className="p-6 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800/80 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col items-start"
+      className="p-6 glass-card glass-card-hover glow-border-hover rounded-2xl transition-all duration-300 flex flex-col items-start"
     >
-      <div className="p-3 bg-violet-50 dark:bg-violet-950/30 text-violet-600 dark:text-violet-400 rounded-xl mb-4">
+      <div className="p-3 bg-violet-100/50 dark:bg-violet-950/40 text-violet-600 dark:text-violet-400 rounded-xl mb-4 shadow-inner shadow-violet-500/10">
         {icon}
       </div>
-      <h3 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50 mb-2">{title}</h3>
-      <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">{description}</p>
+      <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-50 mb-2">{title}</h3>
+      <p className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">{description}</p>
     </motion.div>
   );
 }

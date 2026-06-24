@@ -13,7 +13,10 @@
       "title": "AI-Driven Immersive Interactive Classrooms",
       "subtitle": "Instantly transform any topic or educational PDF into an immersive multi-agent collaborative learning experience.",
       "ctaStart": "Get Started",
-      "ctaMore": "Learn More"
+      "ctaMore": "Learn More",
+      "badge": "TDu AI Interactive Teaching Upgraded",
+      "demoTitle": "Watch a 2-Minute Demo Video",
+      "demoDesc": "See how multi-agent teachers and students interact with real-time voice and draw on whiteboards, and how to use 3D models."
     },
     "valueProps": {
       "title": "Core Values",
@@ -49,12 +52,17 @@
       "desc": "The next-generation AI interactive classroom, making learning immersive and fun.",
       "product": "Product",
       "resources": "Resources",
-      "community": "Community",
+      "community": "Contact & Support",
       "about": "About",
       "userManual": "User Manual",
       "paper": "Academic Paper (JCST'26)",
-      "license": "License (AGPL-3.0)",
+      "license": "Terms of Service",
       "copyright": "© 2026 TDu Interactive Classroom. All rights reserved."
+    },
+    "cta": {
+      "title": "Start Your Next-Generation Interactive Learning Experience",
+      "desc": "Whether you are a university teacher, trainer, or student, TDuMAIC provides highly engaging tools to learn and teach.",
+      "button": "Try for Free"
     }
   },
   "featuresPage": {
@@ -98,7 +106,37 @@
       "title": "Typical Application Scenarios",
       "science": "Science Labs (3D models, physics simulations, live coding)",
       "humanities": "Seminar Discussions (AI multi-perspective debates and inputs)",
-      "general": "Flipped Classrooms (self-directed generation and classroom review)"
+      "general": "Flipped Classrooms (self-directed generation and classroom review)",
+      "subtitle": "How the platform is applied in daily university teaching and research",
+      "scenarioLabel": "Scenario {{number}}",
+      "scienceTitle": "Science Labs",
+      "humanitiesTitle": "Humanities Seminar",
+      "generalTitle": "Flipped Classrooms"
+    },
+    "cta": "Try Higher Ed Solution",
+    "stats": {
+      "title": "Teaching Impact in Numbers",
+      "subtitle": "Empirical metrics proving the power of interactive AI classrooms",
+      "metric1": {
+        "value": "85%",
+        "label": "Prep Efficiency Up",
+        "desc": "Traditional preparation takes 3-5 hours; AI takes just 15-30 minutes."
+      },
+      "metric2": {
+        "value": "3.2x",
+        "label": "Student Engagement",
+        "desc": "Active questions and reasoning frequencies are significantly boosted."
+      },
+      "metric3": {
+        "value": "50+",
+        "label": "Subject Areas",
+        "desc": "Successfully deployed in science, humanities, and general education."
+      },
+      "metric4": {
+        "value": "92%",
+        "label": "Accuracy Rating",
+        "desc": "Syllabus alignment with core textbook concepts verified by experts."
+      }
     }
   },
   "casesPage": {
@@ -120,26 +158,45 @@
         "desc": "AI roundtable discussions on bronze preservation across history, archaeology, and material science.",
         "tag": "Humanities & Social Sciences"
       }
-    }
+    },
+    "generateCta": "Generate Similar Course"
   },
   "pricingPage": {
     "title": "Product Pricing",
     "subtitle": "Flexible plans suitable for personal learning, schools, and institutions",
     "free": {
-      "name": "Community",
+      "name": "Starter",
       "price": "Free",
-      "desc": "Fully open-source, ideal for self-hosting and personal research."
+      "desc": "Free online experience, ideal for quickly understanding multi-agent classrooms.",
+      "cta": "Try Now",
+      "feat1": "Free Online Experience",
+      "feat2": "Basic Course Generation",
+      "feat3": "Single-Class Data Storage",
+      "feat4": "Standard Export"
     },
     "pro": {
       "name": "Pro Plan",
       "price": "Coming Soon",
-      "desc": "Zero-configuration online cloud hosting with sufficient AI API credits."
+      "desc": "Zero-configuration online cloud hosting with sufficient AI API credits.",
+      "cta": "Coming Soon",
+      "feat1": "No Setup Required",
+      "feat2": "Generous LLM Credits",
+      "feat3": "Cloud Data Persistence",
+      "feat4": "HD Course Export",
+      "feat5": "Priority Support"
     },
     "enterprise": {
       "name": "Enterprise / Institution",
       "price": "Contact Us",
-      "desc": "Tailored for universities and large educational institutions with private deployment and custom support."
-    }
+      "desc": "Tailored for universities and large educational institutions with private deployment and custom support.",
+      "cta": "Contact Us",
+      "feat1": "Private Server Deployment",
+      "feat2": "Academic Account Integration",
+      "feat3": "High Concurrency & SLA",
+      "feat4": "Custom Voice & UI",
+      "feat5": "Dedicated Support"
+    },
+    "popular": "Popular"
   },
   "aboutPage": {
     "title": "About Us",
@@ -150,7 +207,34 @@
     },
     "academic": {
       "title": "Academic Origins",
-      "desc": "Originating from research on multi-agent classrooms at Tsinghua University, published in the JCST'26 international academic journal."
+      "desc": "Originating from research on multi-agent classrooms at Tsinghua University, published in the JCST'26 international academic journal.",
+      "readPaper": "Read Academic Paper →"
+    },
+    "team": {
+      "title": "Core R&D Team",
+      "desc": "Jointly developed by the Tsinghua Multi-Agent research team and our R&D engineers",
+      "member1": {
+        "name": "Prof. Li",
+        "role": "Research Lead / Academic Advisor"
+      },
+      "member2": {
+        "name": "Dr. Wang",
+        "role": "Core Multi-Agent Architect"
+      },
+      "member3": {
+        "name": "Mr. Zhang",
+        "role": "Full-stack Lead Developer"
+      },
+      "member4": {
+        "name": "R&D Team",
+        "role": "Platform Customization Expert"
+      }
+    },
+    "partners": {
+      "title": "Academic Support & Partners",
+      "tsinghua": "Tsinghua University",
+      "lab": "State Key Lab of Intelligent Tech",
+      "jcst": "JCST Editorial Board"
     }
   },
   "common": {

@@ -79,12 +79,20 @@ export function MarketingFooter() {
             </ul>
           </div>
 
-          {/* Community & Open Source */}
+          {/* Community & Support */}
           <div>
             <h4 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-4">
               {t('marketing.footer.community')}
             </h4>
             <ul className="space-y-2">
+              <li>
+                <a
+                  href="mailto:pengguochao@tduvr.com"
+                  className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400"
+                >
+                  pengguochao@tduvr.com
+                </a>
+              </li>
               <li>
                 <a
                   href="https://discord.gg/p8Pf2r3SaG"
@@ -93,16 +101,6 @@ export function MarketingFooter() {
                   className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400"
                 >
                   Discord
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/THU-MAIC/OpenMAIC"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400"
-                >
-                  GitHub
                 </a>
               </li>
               <li>
@@ -117,14 +115,9 @@ export function MarketingFooter() {
         <div className="mt-12 pt-8 border-t border-zinc-100 dark:border-zinc-900 flex flex-col md:flex-row items-center justify-between text-zinc-500 dark:text-zinc-500 text-xs">
           <p>{t('marketing.footer.copyright')}</p>
           <div className="mt-4 md:mt-0 flex space-x-6">
-            <a
-              href="https://github.com/THU-MAIC/OpenMAIC/blob/main/LICENSE"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline"
-            >
+            <span className="cursor-default">
               {t('marketing.footer.license')}
-            </a>
+            </span>
           </div>
         </div>
       </div>

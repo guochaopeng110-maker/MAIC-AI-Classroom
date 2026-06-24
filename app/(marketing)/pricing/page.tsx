@@ -15,17 +15,28 @@ export default function PricingPage() {
       name: t('pricingPage.free.name'),
       price: t('pricingPage.free.price'),
       desc: t('pricingPage.free.desc'),
-      features: ['AGPL-3.0 开源源码', '本地离线部署', '自配 LLM Provider API Key', '单用户本地数据库存储'],
-      cta: '去 GitHub 部署',
-      href: 'https://github.com/THU-MAIC/OpenMAIC',
+      features: [
+        t('pricingPage.free.feat1'),
+        t('pricingPage.free.feat2'),
+        t('pricingPage.free.feat3'),
+        t('pricingPage.free.feat4')
+      ],
+      cta: t('pricingPage.free.cta'),
+      href: '/app',
       variant: 'secondary' as const,
     },
     {
       name: t('pricingPage.pro.name'),
       price: t('pricingPage.pro.price'),
       desc: t('pricingPage.pro.desc'),
-      features: ['免配置在线即用', '充足的系统 LLM 额度', '云端课堂数据持久化', '高清课堂导出', '优先支持'],
-      cta: '敬请期待',
+      features: [
+        t('pricingPage.pro.feat1'),
+        t('pricingPage.pro.feat2'),
+        t('pricingPage.pro.feat3'),
+        t('pricingPage.pro.feat4'),
+        t('pricingPage.pro.feat5')
+      ],
+      cta: t('pricingPage.pro.cta'),
       href: '/app',
       variant: 'primary' as const,
       popular: true,
@@ -34,9 +45,15 @@ export default function PricingPage() {
       name: t('pricingPage.enterprise.name'),
       price: t('pricingPage.enterprise.price'),
       desc: t('pricingPage.enterprise.desc'),
-      features: ['学校私有化服务器部署', '对接教务系统账号体系', '高并发与服务级 SLA 保证', '定制化智能体音色/界面', '专属客服技术支持'],
-      cta: '联系我们',
-      href: 'mailto:contact@tdu.edu.cn',
+      features: [
+        t('pricingPage.enterprise.feat1'),
+        t('pricingPage.enterprise.feat2'),
+        t('pricingPage.enterprise.feat3'),
+        t('pricingPage.enterprise.feat4'),
+        t('pricingPage.enterprise.feat5')
+      ],
+      cta: t('pricingPage.enterprise.cta'),
+      href: 'mailto:pengguochao@tduvr.com',
       variant: 'secondary' as const,
     },
   ];
@@ -55,16 +72,16 @@ export default function PricingPage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: idx * 0.1 }}
-            className={`relative p-8 rounded-3xl bg-zinc-50 dark:bg-zinc-900 border flex flex-col justify-between ${
+            transition={{ type: 'spring', stiffness: 100, damping: 20, delay: idx * 0.1 }}
+            className={`relative p-8 rounded-3xl glass-card glass-card-hover flex flex-col justify-between ${
               plan.popular
-                ? 'border-violet-600 dark:border-violet-500 shadow-lg ring-1 ring-violet-600/30'
-                : 'border-zinc-100 dark:border-zinc-800'
+                ? 'border-violet-500/50 dark:border-violet-500/40 ring-1 ring-violet-500/20 shadow-xl shadow-violet-500/10 glow-border'
+                : 'glow-border-hover'
             }`}
           >
             {plan.popular && (
-              <span className="absolute top-0 right-8 -translate-y-1/2 bg-violet-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
-                最受欢迎
+              <span className="absolute top-0 right-8 -translate-y-1/2 bg-gradient-to-r from-violet-600 via-indigo-600 to-purple-600 bg-[length:200%_auto] animate-gradient-shift text-white text-xs font-bold px-3 py-1 rounded-full uppercase shadow-md shadow-violet-500/20">
+                {t('pricingPage.popular')}
               </span>
             )}
 
@@ -81,7 +98,7 @@ export default function PricingPage() {
               <ul className="space-y-3 pt-6 border-t border-zinc-100 dark:border-zinc-800">
                 {plan.features.map((feat, fIdx) => (
                   <li key={fIdx} className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
-                    <Check size={16} className="text-violet-600 dark:text-violet-400 flex-shrink-0 mt-0.5" />
+                    <Check size={16} className="text-violet-500 dark:text-violet-400 flex-shrink-0 mt-0.5 filter drop-shadow-[0_0_2px_rgba(139,92,246,0.5)]" />
                     <span>{feat}</span>
                   </li>
                 ))}
