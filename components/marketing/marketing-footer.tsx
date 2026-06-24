@@ -1,14 +1,19 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useI18n } from '@/lib/hooks/use-i18n';
+import { ManualSheet } from '@/components/manual-sheet';
 
 export function MarketingFooter() {
-  const { t, locale } = useI18n();
+  const { t } = useI18n();
+  const [manualOpen, setManualOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<'userManual' | 'aiConfig'>('userManual');
 
-  const isZh = locale?.startsWith('zh');
-  const manualUrl = isZh ? '/user-manual-zh.md' : '/user-manual-en.md';
+  const handleOpenManual = (tab: 'userManual' | 'aiConfig') => {
+    setActiveTab(tab);
+    setManualOpen(true);
+  };
 
   return (
     <footer className="bg-zinc-50 dark:bg-zinc-950 border-t border-zinc-100 dark:border-zinc-900 py-12 transition-colors">
@@ -57,24 +62,20 @@ export function MarketingFooter() {
             </h4>
             <ul className="space-y-2">
               <li>
-                <a
-                  href={manualUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400"
+                <button
+                  onClick={() => handleOpenManual('userManual')}
+                  className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400 cursor-pointer bg-transparent border-0 p-0 text-left transition-colors"
                 >
                   {t('marketing.footer.userManual')}
-                </a>
+                </button>
               </li>
               <li>
-                <a
-                  href="https://jcst.ict.ac.cn/en/article/doi/10.1007/s11390-025-6000-0"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400"
+                <button
+                  onClick={() => handleOpenManual('aiConfig')}
+                  className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400 cursor-pointer bg-transparent border-0 p-0 text-left transition-colors"
                 >
-                  {t('marketing.footer.paper')}
-                </a>
+                  {t('marketing.footer.aiConfig')}
+                </button>
               </li>
             </ul>
           </div>
@@ -121,6 +122,7 @@ export function MarketingFooter() {
           </div>
         </div>
       </div>
+      <ManualSheet isOpen={manualOpen} onClose={() => setManualOpen(false)} defaultTab={activeTab} />
     </footer>
   );
 }

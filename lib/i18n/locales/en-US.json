@@ -55,7 +55,7 @@
       "community": "Contact & Support",
       "about": "About",
       "userManual": "User Manual",
-      "paper": "Academic Paper (JCST'26)",
+      "aiConfig": "AI Service Config",
       "license": "Terms of Service",
       "copyright": "© 2026 TDu Interactive Classroom. All rights reserved."
     },
@@ -212,9 +212,9 @@
     },
     "team": {
       "title": "Core R&D Team",
-      "desc": "Jointly developed by the Tsinghua Multi-Agent research team and our R&D engineers",
+      "desc": "",
       "member1": {
-        "name": "Prof. Li",
+        "name": "Prof. Liu",
         "role": "Research Lead / Academic Advisor"
       },
       "member2": {
@@ -222,7 +222,7 @@
         "role": "Core Multi-Agent Architect"
       },
       "member3": {
-        "name": "Mr. Zhang",
+        "name": "Mr. Peng",
         "role": "Full-stack Lead Developer"
       },
       "member4": {

@@ -55,7 +55,7 @@
       "community": "联系与支持",
       "about": "关于",
       "userManual": "用户手册",
-      "paper": "学术论文 (JCST'26)",
+      "aiConfig": "AI服务配置说明",
       "license": "服务条款",
       "copyright": "© 2026 TDu AI互动课堂. 保留所有权利。"
     },
@@ -212,9 +212,9 @@
     },
     "team": {
       "title": "核心研发团队",
-      "desc": "由清华大学多智能体研究团队及二次开发团队联合打造",
+      "desc": "",
       "member1": {
-        "name": "李教授",
+        "name": "柳教授",
         "role": "课题组负责人 / 学术指导"
       },
       "member2": {
@@ -222,7 +222,7 @@
         "role": "多智能体系统核心架构师"
       },
       "member3": {
-        "name": "张工",
+        "name": "彭工",
         "role": "平台全栈主开发"
       },
       "member4": {

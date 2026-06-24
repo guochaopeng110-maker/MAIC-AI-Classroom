@@ -71,7 +71,9 @@ export default function AboutPage() {
             <Users size={20} />
           </div>
           <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">{t('aboutPage.team.title')}</h3>
-          <p className="text-zinc-600 dark:text-zinc-400 text-sm">{t('aboutPage.team.desc')}</p>
+          {t('aboutPage.team.desc') && (
+            <p className="text-zinc-600 dark:text-zinc-400 text-sm">{t('aboutPage.team.desc')}</p>
+          )}
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -100,19 +102,6 @@ export default function AboutPage() {
               </div>
             </motion.div>
           ))}
-        </div>
-      </div>
-
-      {/* Partners / Academic support */}
-      <div className="space-y-12 glass-card rounded-3xl p-8 text-center glow-border shadow-inner shadow-violet-500/[0.01]">
-        <div className="flex items-center justify-center gap-2 text-violet-600 dark:text-violet-400">
-          <Award size={18} />
-          <span className="text-sm font-semibold tracking-wider uppercase">{t('aboutPage.partners.title')}</span>
-        </div>
-        <div className="flex flex-wrap items-center justify-center gap-12 opacity-70">
-          <span className="text-lg font-extrabold tracking-widest text-zinc-400 dark:text-zinc-600 hover:text-violet-500 dark:hover:text-violet-400 transition-colors cursor-default">{t('aboutPage.partners.tsinghua')}</span>
-          <span className="text-lg font-extrabold tracking-widest text-zinc-400 dark:text-zinc-600 hover:text-violet-500 dark:hover:text-violet-400 transition-colors cursor-default">{t('aboutPage.partners.lab')}</span>
-          <span className="text-lg font-extrabold tracking-widest text-zinc-400 dark:text-zinc-600 hover:text-violet-500 dark:hover:text-violet-400 transition-colors cursor-default">{t('aboutPage.partners.jcst')}</span>
         </div>
       </div>
     </div>

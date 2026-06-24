@@ -10,6 +10,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 interface ManualSheetProps {
   isOpen: boolean;
   onClose: () => void;
+  defaultTab?: 'userManual' | 'aiConfig';
 }
 
 interface Chapter {
@@ -39,7 +40,7 @@ const MANUAL_CONFIGS: ManualConfig[] = [
   },
 ];
 
-export function ManualSheet({ isOpen, onClose }: ManualSheetProps) {
+export function ManualSheet({ isOpen, onClose, defaultTab }: ManualSheetProps) {
   const { locale, t } = useI18n();
   const [activeTab, setActiveTab] = useState<'userManual' | 'aiConfig'>('userManual');
   const [markdown, setMarkdown] = useState<string>('');
@@ -49,9 +50,21 @@ export function ManualSheet({ isOpen, onClose }: ManualSheetProps) {
   
   const contentRef = useRef<HTMLDivElement>(null);
 
+  // Synchronize activeTab with defaultTab when drawer is opened
+  useEffect(() => {
+    if (isOpen && defaultTab) {
+      setActiveTab(defaultTab);
+    }
+  }, [isOpen, defaultTab]);
+
   // Load manual based on locale and active tab
   useEffect(() => {
     if (!isOpen) return;
+
+    // Prevent fetching if defaultTab is provided but activeTab hasn't updated yet
+    if (defaultTab && activeTab !== defaultTab) {
+      return;
+    }
 
     const fetchManual = async () => {
       setLoading(true);
@@ -92,7 +105,7 @@ export function ManualSheet({ isOpen, onClose }: ManualSheetProps) {
     };
 
     fetchManual();
-  }, [isOpen, locale, activeTab]);
+  }, [isOpen, locale, activeTab, defaultTab]);
 
   // Handle click on directory items to smooth scroll right container
   const handleChapterClick = (index: number) => {
