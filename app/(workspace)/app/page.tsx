@@ -57,7 +57,8 @@ import { toast } from 'sonner';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { useDraftCache } from '@/lib/hooks/use-draft-cache';
 import { SpeechButton } from '@/components/audio/speech-button';
-import { useImportClassroom } from '@/lib/import/use-import-classroom';
+import { useImportClassroom, type ImportPhase } from '@/lib/import/use-import-classroom';
+import { BUILTIN_CLASSROOMS, isBuiltinClassroomId, getBuiltinClassroomConfig } from '@/lib/utils/builtin-classrooms';
 
 const log = createLogger('Home');
 
@@ -86,6 +87,9 @@ function HomePage() {
   const [form, setForm] = useState<FormState>(initialFormState);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [manualOpen, setManualOpen] = useState(false);
+  const [importingBuiltin, setImportingBuiltin] = useState(false);
+  const [importingName, setImportingName] = useState('');
+  const [importPhase, setImportPhase] = useState<ImportPhase>('idle');
   const [settingsSection, setSettingsSection] = useState<
     import('@/lib/types/settings').SettingsSection | undefined
   >(undefined);
@@ -187,10 +191,39 @@ function HomePage() {
   const loadClassrooms = async () => {
     try {
       const list = await listStages();
-      setClassrooms(list);
-      // Load first slide thumbnails
-      if (list.length > 0) {
-        const slides = await getFirstSlideByStages(list.map((c) => c.id));
+      const listMap = new Map(list.map((c) => [c.id, c]));
+
+      const builtinList = BUILTIN_CLASSROOMS.map((config) => {
+        const existing = listMap.get(config.id);
+        if (existing) {
+          return {
+            ...existing,
+            isBuiltin: true,
+            isDownloaded: true,
+            description: existing.description || config.description,
+          };
+        } else {
+          return {
+            id: config.id,
+            name: config.name,
+            description: config.description,
+            sceneCount: config.sceneCount,
+            createdAt: 0,
+            updatedAt: 0,
+            isBuiltin: true,
+            isDownloaded: false,
+          };
+        }
+      });
+
+      const userList = list.filter((c) => !isBuiltinClassroomId(c.id));
+      const mergedList = [...builtinList, ...userList];
+
+      setClassrooms(mergedList);
+
+      const loadedIds = (mergedList as any[]).filter((c) => !c.isBuiltin || c.isDownloaded).map((c) => c.id);
+      if (loadedIds.length > 0) {
+        const slides = await getFirstSlideByStages(loadedIds);
         replaceThumbnails(slides);
       } else {
         replaceThumbnails({});
@@ -200,11 +233,37 @@ function HomePage() {
     }
   };
 
-  const { importing, fileInputRef, triggerFileSelect, handleFileChange } = useImportClassroom(
+  const { importing, fileInputRef, triggerFileSelect, handleFileChange, importClassroomFromUrl } = useImportClassroom(
     () => {
       loadClassrooms();
     },
   );
+
+  const handleClassroomClick = async (c: StageListItem & { isBuiltin?: boolean; isDownloaded?: boolean }) => {
+    if (c.isBuiltin && !c.isDownloaded) {
+      const config = getBuiltinClassroomConfig(c.id);
+      if (!config) return;
+
+      setImportingName(config.name);
+      setImportingBuiltin(true);
+      setImportPhase('downloading');
+
+      try {
+        await importClassroomFromUrl(config.zipPath, config.id, (phase) => {
+          setImportPhase(phase);
+        });
+        router.push(`/classroom/${c.id}`);
+      } catch (err) {
+        log.error('Failed to import builtin classroom:', err);
+        toast.error(t('import.error.invalidZip') || '导入失败，请检查网络或文件。');
+      } finally {
+        setImportingBuiltin(false);
+        setImportPhase('idle');
+      }
+    } else {
+      router.push(`/classroom/${c.id}`);
+    }
+  };
 
   useEffect(() => {
     // Clear stale media store to prevent cross-course thumbnail contamination.
@@ -813,7 +872,7 @@ function HomePage() {
                           confirmingDelete={pendingDeleteId === classroom.id}
                           onConfirmDelete={() => confirmDelete(classroom.id)}
                           onCancelDelete={() => setPendingDeleteId(null)}
-                          onClick={() => router.push(`/classroom/${classroom.id}`)}
+                          onClick={() => handleClassroomClick(classroom)}
                         />
                       </motion.div>
                     ))}
@@ -829,6 +888,79 @@ function HomePage() {
       <div className="mt-auto pt-12 pb-4 text-center text-xs text-muted-foreground/40">
         © 2026 TDu AI互动课堂 版权所有
       </div>
+
+      {/* Builtin Classroom Import Overlay */}
+      <AnimatePresence>
+        {importingBuiltin && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background/65 backdrop-blur-md"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 10 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 10 }}
+              className="w-full max-w-sm p-6 rounded-3xl border bg-card text-card-foreground shadow-2xl space-y-6 mx-4 relative overflow-hidden"
+            >
+              <div className="space-y-2 text-center">
+                <div className="inline-flex items-center justify-center size-12 rounded-2xl bg-primary/10 text-primary mb-1">
+                  <Sparkles className="size-6 animate-pulse" />
+                </div>
+                <h3 className="text-[15px] font-bold tracking-tight">正在准备课堂案例</h3>
+                <p className="text-[12px] text-muted-foreground font-medium truncate max-w-full px-2">
+                  {importingName}
+                </p>
+              </div>
+
+              <div className="space-y-2.5">
+                <div className="flex justify-between text-[11px] text-muted-foreground font-semibold">
+                  <span>
+                    {importPhase === 'downloading' && '正在下载课程资源包...'}
+                    {importPhase === 'parsing' && '正在解析资源...'}
+                    {importPhase === 'validating' && '正在验证文件...'}
+                    {importPhase === 'writingMedia' && '正在加载媒体与音频...'}
+                    {importPhase === 'writingCourse' && '正在构建课程大纲...'}
+                    {importPhase === 'done' && '准备就绪！'}
+                  </span>
+                  <span className="font-bold text-primary">
+                    {importPhase === 'downloading' && '20%'}
+                    {importPhase === 'parsing' && '40%'}
+                    {importPhase === 'validating' && '60%'}
+                    {importPhase === 'writingMedia' && '80%'}
+                    {importPhase === 'writingCourse' && '95%'}
+                    {importPhase === 'done' && '100%'}
+                  </span>
+                </div>
+                
+                {/* Progress Bar */}
+                <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
+                  <motion.div
+                    className="h-full bg-primary"
+                    initial={{ width: '0%' }}
+                    animate={{
+                      width: 
+                        importPhase === 'downloading' ? '20%' :
+                        importPhase === 'parsing' ? '40%' :
+                        importPhase === 'validating' ? '60%' :
+                        importPhase === 'writingMedia' ? '80%' :
+                        importPhase === 'writingCourse' ? '95%' :
+                        importPhase === 'done' ? '100%' : '0%'
+                    }}
+                    transition={{ duration: 0.35, ease: 'easeInOut' }}
+                  />
+                </div>
+              </div>
+
+              <p className="text-[10px] text-center text-muted-foreground/50">
+                首次加载需要下载媒体素材，后续打开将无需等待
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -1156,6 +1288,10 @@ function ClassroomCard({
   const [nameDraft, setNameDraft] = useState('');
   const nameInputRef = useRef<HTMLInputElement>(null);
 
+  const builtinConfig = getBuiltinClassroomConfig(classroom.id);
+  const isBuiltin = !!builtinConfig;
+  const isDownloaded = (classroom as any).isDownloaded ?? true;
+
   useEffect(() => {
     const el = thumbRef.current;
     if (!el) return;
@@ -1171,6 +1307,7 @@ function ClassroomCard({
   }, [editing]);
 
   const startRename = (e: React.MouseEvent) => {
+    if (isBuiltin) return;
     e.stopPropagation();
     setNameDraft(classroom.name);
     setEditing(true);
@@ -1199,6 +1336,20 @@ function ClassroomCard({
             viewportSize={slide.viewportSize ?? 1000}
             viewportRatio={slide.viewportRatio ?? 0.5625}
           />
+        ) : isBuiltin && !isDownloaded && builtinConfig ? (
+          <div className={cn("absolute inset-0 bg-gradient-to-br p-5 flex flex-col justify-between text-white select-none", builtinConfig.color)}>
+            <div className="text-[10px] font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-sm w-max border border-white/10">
+              {builtinConfig.tag}
+            </div>
+            <div className="space-y-1">
+              <h4 className="font-bold text-[13px] leading-snug tracking-tight line-clamp-2">
+                {builtinConfig.name}
+              </h4>
+              <p className="text-[10px] opacity-75 leading-normal line-clamp-2 font-normal">
+                {builtinConfig.description}
+              </p>
+            </div>
+          </div>
         ) : !slide ? (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="size-12 rounded-2xl bg-gradient-to-br from-violet-100 to-blue-100 dark:from-violet-900/30 dark:to-blue-900/30 flex items-center justify-center">
@@ -1218,8 +1369,6 @@ function ClassroomCard({
                 <Atom className="size-3" />
               </span>
             </TooltipTrigger>
-            {/* Negative sideOffset compensates for the global Tooltip Arrow's
-                rotate-45 bounding box, which Radix reserves as spacing. */}
             <TooltipContent
               side="top"
               align="start"
@@ -1241,25 +1390,29 @@ function ClassroomCard({
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15 }}
             >
-              <Button
-                size="icon"
-                variant="ghost"
-                className="absolute top-2 right-2 size-7 opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 hover:bg-destructive/80 text-white hover:text-white backdrop-blur-sm rounded-full"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onDelete(classroom.id, e);
-                }}
-              >
-                <Trash2 className="size-3.5" />
-              </Button>
-              <Button
-                size="icon"
-                variant="ghost"
-                className="absolute top-2 right-11 size-7 opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 hover:bg-black/50 text-white hover:text-white backdrop-blur-sm rounded-full"
-                onClick={startRename}
-              >
-                <Pencil className="size-3.5" />
-              </Button>
+              {(!isBuiltin || isDownloaded) && (
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="absolute top-2 right-2 size-7 opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 hover:bg-destructive/80 text-white hover:text-white backdrop-blur-sm rounded-full"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDelete(classroom.id, e);
+                  }}
+                >
+                  <Trash2 className="size-3.5" />
+                </Button>
+              )}
+              {!isBuiltin && (
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="absolute top-2 right-11 size-7 opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 hover:bg-black/50 text-white hover:text-white backdrop-blur-sm rounded-full"
+                  onClick={startRename}
+                >
+                  <Pencil className="size-3.5" />
+                </Button>
+              )}
             </motion.div>
           )}
         </AnimatePresence>
@@ -1276,7 +1429,7 @@ function ClassroomCard({
               onClick={(e) => e.stopPropagation()}
             >
               <span className="text-[13px] font-medium text-white/90">
-                {t('classroom.deleteConfirmTitle')}?
+                {isBuiltin ? "确认重置该官方案例" : t('classroom.deleteConfirmTitle')}?
               </span>
               <div className="flex gap-2">
                 <button
@@ -1289,7 +1442,7 @@ function ClassroomCard({
                   className="px-3.5 py-1 rounded-lg text-[12px] font-medium bg-red-500/90 text-white hover:bg-red-500 transition-colors"
                   onClick={onConfirmDelete}
                 >
-                  {t('classroom.delete')}
+                  {isBuiltin ? "重置" : t('classroom.delete')}
                 </button>
               </div>
             </motion.div>
@@ -1300,7 +1453,7 @@ function ClassroomCard({
       {/* Info — outside the thumbnail */}
       <div className="mt-2.5 px-1 flex items-center gap-2">
         <span className="shrink-0 inline-flex items-center rounded-full bg-violet-100 dark:bg-violet-900/30 px-2 py-0.5 text-[11px] font-medium text-violet-600 dark:text-violet-400">
-          {classroom.sceneCount} {t('classroom.slides')} · {formatDate(classroom.updatedAt)}
+          {classroom.sceneCount} {t('classroom.slides')} · {isBuiltin && !isDownloaded ? "官方案例" : formatDate(classroom.updatedAt)}
         </span>
         {editing ? (
           <div className="flex-1 min-w-0" onClick={(e) => e.stopPropagation()}>
@@ -1323,7 +1476,7 @@ function ClassroomCard({
             <TooltipTrigger asChild>
               <p
                 className="font-medium text-[15px] truncate text-foreground/90 min-w-0 cursor-text"
-                onDoubleClick={startRename}
+                onDoubleClick={isBuiltin ? undefined : startRename}
               >
                 {classroom.name}
               </p>

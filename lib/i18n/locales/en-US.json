@@ -144,22 +144,22 @@
     "subtitle": "See how teachers and students use TDuMAIC for daily learning",
     "list": {
       "case1": {
-        "title": "Quantum Mechanics: Schrödinger Equation",
-        "desc": "Visualizing wave function probability density with 3D quantum well simulations, with live questions from AI students.",
-        "tag": "Science"
+        "title": "7-Day AI Drama Foundation & Progress Course",
+        "desc": "Systematically learn the AI Drama creation workflow. Quickly master characters, storyboards, and motions for beginners, and create your first AI Drama.",
+        "tag": "Foundation & Progress"
       },
       "case2": {
-        "title": "Data Structures: AVL Tree",
-        "desc": "Understand AVL tree insertion and rotation with interactive visuals and built-in coding exercises.",
-        "tag": "Computer Science"
+        "title": "14-Day AI Drama & Show Masterclass",
+        "desc": "Connect the end-to-end production of AI Drama and hit short plays. Deep dive into script writing, post-effects, and cinematography to join the experts.",
+        "tag": "Advanced Expert"
       },
       "case3": {
-        "title": "Historical Relics Conservation & Restoration",
-        "desc": "AI roundtable discussions on bronze preservation across history, archaeology, and material science.",
-        "tag": "Humanities & Social Sciences"
+        "title": "21-Day AI Drama Entrepreneur Masterclass",
+        "desc": "Fully empower AI Drama commercialization and monetization. Master account operation, hit logics, and traffic secrets across platforms.",
+        "tag": "Entrepreneur Master"
       }
     },
-    "generateCta": "Generate Similar Course"
+    "generateCta": "Enter Classroom"
   },
   "pricingPage": {
     "title": "Product Pricing",
@@ -294,6 +294,7 @@
   },
   "import": {
     "classroom": "Import Classroom",
+    "downloading": "Downloading resources...",
     "parsing": "Parsing ZIP...",
     "validating": "Validating data...",
     "writingMedia": "Writing media files...",
@@ -303,7 +304,7 @@
       "invalidZip": "Invalid file. Please select a valid .maic.zip file.",
       "invalidManifest": "Invalid classroom file: manifest.json is missing or corrupted.",
       "missingData": "Invalid classroom file: missing required course data.",
-      "storageFull": "Import failed: browser storage is full. Try clearing old classrooms."
+      "storageFull": "Import failed: browser storage is full. Please clear old classrooms and try again."
     }
   },
   "chat": {
