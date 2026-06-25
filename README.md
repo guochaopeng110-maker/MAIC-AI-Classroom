@@ -45,7 +45,7 @@
 
 **TDuMAIC** (Open Multi-Agent Interactive Classroom) is an open-source AI platform that turns any topic or document into a rich, interactive classroom experience. Powered by multi-agent orchestration, it generates slides, quizzes, interactive simulations, and project-based learning activities — all delivered by AI teachers and AI classmates who can speak, draw on a whiteboard, and engage in real-time discussions with you. With built-in [OpenClaw](https://github.com/openclaw/openclaw) integration, you can generate classrooms directly from messaging apps like Feishu, Slack, or Telegram.
 
-public/videos/tdu-ai-promo.mp4
+<video src="public/videos/tdu-ai-promo.mp4" controls="controls" width="100%"></video>
 
 ### Highlights
 
