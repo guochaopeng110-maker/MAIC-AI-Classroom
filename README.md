@@ -14,7 +14,7 @@
   <a href="https://jcst.ict.ac.cn/en/article/doi/10.1007/s11390-025-6000-0"><img src="https://img.shields.io/badge/Paper-JCST'26-blue?style=flat-square" alt="Paper"/></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-AGPL--3.0-blue.svg?style=flat-square" alt="License: AGPL-3.0"/></a>
   <a href="https://open.maic.chat/"><img src="https://img.shields.io/badge/Demo-Live-brightgreen?style=flat-square" alt="Live Demo"/></a>
-  <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FTHU-MAIC%2FTDuMAIC&envDescription=Configure%20at%20least%20one%20LLM%20provider%20API%20key%20(e.g.%20OPENAI_API_KEY%2C%20ANTHROPIC_API_KEY).%20All%20providers%20are%20optional.&envLink=https%3A%2F%2Fgithub.com%2FTHU-MAIC%2FTDuMAIC%2Fblob%2Fmain%2F.env.example&project-name=openmaic&framework=nextjs"><img src="https://vercel.com/button" alt="Deploy with Vercel" height="20"/></a>
+  <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FTHU-MAIC%2FTDuMAIC&envDescription=Configure%20at%20least%20one%20LLM%20provider%20API%20key%20(e.g.%20OPENAI_API_KEY%2C%20ANTHROPIC_API_KEY).%20All%20providers%20are%20optional.&envLink=https%3A%2F%2Fgithub.com%2FTHU-MAIC%2FTDuMAIC%2Fblob%2Fmain%2F.env.example&project-name=tdumaic&framework=nextjs"><img src="https://vercel.com/button" alt="Deploy with Vercel" height="20"/></a>
   <a href="#-openclaw-integration"><img src="https://img.shields.io/badge/OpenClaw-Integration-F4511E?style=flat-square" alt="OpenClaw Integration"/></a>
   <a href="#lemonade-local-ai"><img src="https://img.shields.io/badge/Lemonade-Local_AI-FFD43B?style=flat-square" alt="Lemonade Local AI"/></a>
   <a href="https://github.com/THU-MAIC/TDuMAIC/stargazers"><img src="https://img.shields.io/github/stars/THU-MAIC/TDuMAIC?style=flat-square" alt="Stars"/></a>
@@ -67,7 +67,7 @@ https://github.com/user-attachments/assets/b4ab35ac-f994-46b1-8957-e82fe87ff0e9
 >
 > With [OpenClaw](https://github.com/openclaw/openclaw), you can generate classrooms directly from Feishu, Slack, Discord, Telegram, and 20+ messaging apps.
 >
-> 1. `clawhub install openmaic` or just ask your Claw *"install TDuMAIC skill"*
+> 1. `clawhub install tdumaic` or just ask your Claw *"install TDuMAIC skill"*
 > 2. Pick a mode:
 >    - **Hosted mode** — Get an access code at [open.maic.chat](https://open.maic.chat/), no local setup needed
 >    - **Self-hosted** — The skill walks you through clone, config, and startup step by step
@@ -222,7 +222,7 @@ When set, visitors see a password prompt before accessing the app. All API route
 
 ### Vercel Deployment
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FTHU-MAIC%2FTDuMAIC&envDescription=Configure%20at%20least%20one%20LLM%20provider%20API%20key%20(e.g.%20OPENAI_API_KEY%2C%20ANTHROPIC_API_KEY).%20All%20providers%20are%20optional.&envLink=https%3A%2F%2Fgithub.com%2FTHU-MAIC%2FTDuMAIC%2Fblob%2Fmain%2F.env.example&project-name=openmaic&framework=nextjs)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FTHU-MAIC%2FTDuMAIC&envDescription=Configure%20at%20least%20one%20LLM%20provider%20API%20key%20(e.g.%20OPENAI_API_KEY%2C%20ANTHROPIC_API_KEY).%20All%20providers%20are%20optional.&envLink=https%3A%2F%2Fgithub.com%2FTHU-MAIC%2FTDuMAIC%2Fblob%2Fmain%2F.env.example&project-name=tdumaic&framework=nextjs)
 
 Or manually:
 
@@ -498,14 +498,14 @@ Every step asks for your confirmation first. No black-box automation.
 **Available on ClawHub** — Install with one command:
 
 ```bash
-clawhub install openmaic
+clawhub install tdumaic
 ```
 
 Or copy manually:
 
 ```bash
 mkdir -p ~/.openclaw/skills
-cp -R /path/to/TDuMAIC/skills/openmaic ~/.openclaw/skills/openmaic
+cp -R /path/to/TDuMAIC/skills/tdumaic ~/.openclaw/skills/tdumaic
 ```
 
 </td></tr></table>
@@ -526,7 +526,7 @@ Optional config in `~/.openclaw/openclaw.json`:
 {
   "skills": {
     "entries": {
-      "openmaic": {
+      "tdumaic": {
         "config": {
           // Hosted mode: paste your access code from open.maic.chat
           "accessCode": "sk-xxx",
@@ -653,7 +653,7 @@ TDuMAIC/
 │   └── mathml2omml/            #   MathML → Office Math conversion
 │
 ├── skills/                     # OpenClaw / ClawHub skills
-│   └── openmaic/               #   Guided TDuMAIC setup & generation SOP
+│   └── tdumaic/               #   Guided TDuMAIC setup & generation SOP
 │       ├── SKILL.md            #   Thin router with confirmation rules
 │       └── references/         #   On-demand SOP sections
 │

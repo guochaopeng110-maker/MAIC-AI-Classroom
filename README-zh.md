@@ -14,7 +14,7 @@
   <a href="https://jcst.ict.ac.cn/en/article/doi/10.1007/s11390-025-6000-0"><img src="https://img.shields.io/badge/Paper-JCST'26-blue?style=flat-square" alt="Paper"/></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-AGPL--3.0-blue.svg?style=flat-square" alt="License: AGPL-3.0"/></a>
   <a href="https://open.maic.chat/"><img src="https://img.shields.io/badge/Demo-Live-brightgreen?style=flat-square" alt="Live Demo"/></a>
-  <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FTHU-MAIC%2FTDuMAIC&envDescription=Configure%20at%20least%20one%20LLM%20provider%20API%20key%20(e.g.%20OPENAI_API_KEY%2C%20ANTHROPIC_API_KEY).%20All%20providers%20are%20optional.&envLink=https%3A%2F%2Fgithub.com%2FTHU-MAIC%2FTDuMAIC%2Fblob%2Fmain%2F.env.example&project-name=openmaic&framework=nextjs"><img src="https://vercel.com/button" alt="Deploy with Vercel" height="20"/></a>
+  <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FTHU-MAIC%2FTDuMAIC&envDescription=Configure%20at%20least%20one%20LLM%20provider%20API%20key%20(e.g.%20OPENAI_API_KEY%2C%20ANTHROPIC_API_KEY).%20All%20providers%20are%20optional.&envLink=https%3A%2F%2Fgithub.com%2FTHU-MAIC%2FTDuMAIC%2Fblob%2Fmain%2F.env.example&project-name=tdumaic&framework=nextjs"><img src="https://vercel.com/button" alt="Deploy with Vercel" height="20"/></a>
   <a href="#-openclaw-集成"><img src="https://img.shields.io/badge/OpenClaw-集成-F4511E?style=flat-square" alt="OpenClaw 集成"/></a>
   <a href="#lemonade-local-ai"><img src="https://img.shields.io/badge/Lemonade-Local_AI-FFD43B?style=flat-square" alt="Lemonade Local AI"/></a>
   <a href="https://github.com/THU-MAIC/TDuMAIC/stargazers"><img src="https://img.shields.io/github/stars/THU-MAIC/TDuMAIC?style=flat-square" alt="Stars"/></a>
@@ -67,7 +67,7 @@ https://github.com/user-attachments/assets/dbd013f6-9fab-43c5-a788-b47126cff7a8
 >
 > 通过 [OpenClaw](https://github.com/openclaw/openclaw)，你可以直接在飞书、Slack、Discord、Telegram 等 20+ 聊天应用中生成课堂。
 >
-> 1. `clawhub install openmaic`，或者直接跟你的 Claw 说 *"安装 TDuMAIC skill"*
+> 1. `clawhub install tdumaic`，或者直接跟你的 Claw 说 *"安装 TDuMAIC skill"*
 > 2. 选一种模式：
 >    - **托管模式** — 在 [open.maic.chat](https://open.maic.chat/) 获取访问码，无需本地部署
 >    - **本地部署** — Skill 会引导你逐步完成 clone、配置和启动
@@ -222,7 +222,7 @@ ACCESS_CODE=your-secret-code
 
 ### Vercel 部署
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FTHU-MAIC%2FTDuMAIC&envDescription=Configure%20at%20least%20one%20LLM%20provider%20API%20key%20(e.g.%20OPENAI_API_KEY%2C%20ANTHROPIC_API_KEY).%20All%20providers%20are%20optional.&envLink=https%3A%2F%2Fgithub.com%2FTHU-MAIC%2FTDuMAIC%2Fblob%2Fmain%2F.env.example&project-name=openmaic&framework=nextjs)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FTHU-MAIC%2FTDuMAIC&envDescription=Configure%20at%20least%20one%20LLM%20provider%20API%20key%20(e.g.%20OPENAI_API_KEY%2C%20ANTHROPIC_API_KEY).%20All%20providers%20are%20optional.&envLink=https%3A%2F%2Fgithub.com%2FTHU-MAIC%2FTDuMAIC%2Fblob%2Fmain%2F.env.example&project-name=tdumaic&framework=nextjs)
 
 或者手动部署：
 
@@ -496,14 +496,14 @@ TDuMAIC 集成了 [OpenClaw](https://github.com/openclaw/openclaw)——一个�
 **已上架 ClawHub** — 一行命令安装：
 
 ```bash
-clawhub install openmaic
+clawhub install tdumaic
 ```
 
 或手动复制：
 
 ```bash
 mkdir -p ~/.openclaw/skills
-cp -R /path/to/TDuMAIC/skills/openmaic ~/.openclaw/skills/openmaic
+cp -R /path/to/TDuMAIC/skills/tdumaic ~/.openclaw/skills/tdumaic
 ```
 
 </td></tr></table>
@@ -524,7 +524,7 @@ cp -R /path/to/TDuMAIC/skills/openmaic ~/.openclaw/skills/openmaic
 {
   "skills": {
     "entries": {
-      "openmaic": {
+      "tdumaic": {
         "config": {
           // 托管模式：粘贴从 open.maic.chat 获取的访问码
           "accessCode": "sk-xxx",
@@ -651,7 +651,7 @@ TDuMAIC/
 │   └── mathml2omml/            #   MathML → Office Math 转换
 │
 ├── skills/                     # OpenClaw / ClawHub skills
-│   └── openmaic/               #   TDuMAIC 引导式 SOP skill
+│   └── tdumaic/               #   TDuMAIC 引导式 SOP skill
 │       ├── SKILL.md            #   轻量路由层 + 确认规则
 │       └── references/         #   按需加载的 SOP 分段
 │
