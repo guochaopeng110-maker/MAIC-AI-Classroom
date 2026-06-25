@@ -3,10 +3,6 @@
 </p> -->
 
 <p align="center">
-  <img src="assets/banner.png" alt="TDuMAIC Banner" width="680"/>
-</p>
-
-<p align="center">
   一键生成沉浸式多智能体互动课堂。
 </p>
 
@@ -49,7 +45,7 @@
 
 **TDuMAIC**（Open Multi-Agent Interactive Classroom）是一个开源的 AI 互动课堂平台，能够将任何主题或文档转化为丰富的互动学习体验。基于多智能体协作引擎，它可以自动生成演示幻灯片、测验、交互式模拟实验和项目制学习活动——由 AI 教师和 AI 同学进行语音讲解、白板绘图，并与你展开实时讨论。内置 [OpenClaw](https://github.com/openclaw/openclaw) 集成，你还可以直接在飞书、Slack、Telegram 等聊天应用中生成课堂。
 
-https://github.com/user-attachments/assets/dbd013f6-9fab-43c5-a788-b47126cff7a8
+public/videos/tdu-ai-promo.mp4
 
 ### 核心亮点
 
