@@ -38,7 +38,7 @@
         text-transform: uppercase;
       }
 
-      /* Left Side: 3D Simulation Mockup */
+      /* Left Side: Features Column 4 Highlight */
       .simulation-area {
         flex-grow: 1;
         background: #0d0d11;
@@ -46,67 +46,35 @@
         border-radius: 16px;
         position: relative;
         overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
       }
 
-      .canvas-container {
+      .feature-wrapper {
         position: relative;
-        width: 400px;
-        height: 400px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
-      .star-center {
+      .feature-img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .feature-highlighter {
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background: radial-gradient(circle, #f59e0b 0%, #d97706 70%);
-        box-shadow: 0 0 35px rgba(245, 158, 11, 0.8);
-      }
-
-      .orbit {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        border: 1px dashed rgba(99, 102, 241, 0.2);
-        border-radius: 50%;
-      }
-
-      .orbit-1 { width: 180px; height: 180px; }
-      .orbit-2 { width: 300px; height: 300px; }
-
-      .planet {
-        position: absolute;
-        border-radius: 50%;
-        transform-origin: 50% 50%;
-      }
-
-      .planet-1 {
-        width: 16px;
-        height: 16px;
-        background: radial-gradient(circle, #6366f1 0%, #4338ca 70%);
-        box-shadow: 0 0 10px rgba(99, 102, 241, 0.6);
-        top: 50%;
-        left: 50%;
-        margin-top: -8px;
-        margin-left: -8px;
-      }
-
-      .planet-2 {
-        width: 24px;
-        height: 24px;
-        background: radial-gradient(circle, #ec4899 0%, #be185d 70%);
-        box-shadow: 0 0 15px rgba(236, 72, 153, 0.6);
-        top: 50%;
-        left: 50%;
-        margin-top: -12px;
-        margin-left: -12px;
+        height: 100%;
+        top: 0;
+        box-sizing: border-box;
+        border-radius: 12px;
+        opacity: 0;
+        pointer-events: none;
+        left: 60%;
+        width: 20%;
+        border: 3px solid #7c3aed;
+        box-shadow: inset 0 0 20px rgba(124, 58, 237, 0.3), 0 0 20px rgba(124, 58, 237, 0.8);
       }
 
       /* Right Side: Interactive Quiz Card */
@@ -198,17 +166,11 @@
 
     <!-- Left: 3D Simulation Panel -->
     <div class="panel-card" id="card-left">
-      <div class="panel-label">🧪 互动式模拟实验 (HTML Sandbox)</div>
+      <div class="panel-label">🎭 丰富的场景类型 (Interactive Sandbox)</div>
       <div class="simulation-area">
-        <div class="canvas-container">
-          <div class="star-center"></div>
-          <div class="orbit orbit-1"></div>
-          <div class="orbit orbit-2"></div>
-          
-          <!-- Planet 1 container to revolve -->
-          <div class="planet planet-1" id="p1" style="transform: rotate(0deg) translate(90px) rotate(0deg);"></div>
-          <!-- Planet 2 container to revolve -->
-          <div class="planet planet-2" id="p2" style="transform: rotate(180deg) translate(150px) rotate(-180deg);"></div>
+        <div class="feature-wrapper">
+          <img src="assets/images/特色.png" class="feature-img" id="feature-img" />
+          <div class="feature-highlighter" id="highlight-feature4" data-layout-allow-overflow></div>
         </div>
       </div>
     </div>
@@ -241,34 +203,9 @@
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
 
-      // Orbit Planet Revolutions (duration 11s)
-      const p1Obj = { angle: 0 };
-      const p2Obj = { angle: 180 };
-      const loopDur = 11;
-      
-      const rep1 = Math.ceil(loopDur / 4.0) - 1;
-      const rep2 = Math.ceil(loopDur / 8.0) - 1;
-      
-      gsap.to(p1Obj, {
-        angle: 360,
-        duration: 4.0,
-        repeat: rep1,
-        ease: "none",
-        onUpdate: () => {
-          const rotation = p1Obj.angle;
-          document.getElementById("p1").style.transform = `rotate(${rotation}deg) translate(90px) rotate(-${rotation}deg)`;
-        }
-      });
-      gsap.to(p2Obj, {
-        angle: 540,
-        duration: 8.0,
-        repeat: rep2,
-        ease: "none",
-        onUpdate: () => {
-          const rotation = p2Obj.angle;
-          document.getElementById("p2").style.transform = `rotate(${rotation}deg) translate(150px) rotate(-${rotation}deg)`;
-        }
-      });
+      // Highlight Column 4 (丰富的场景类型)
+      tl.to("#highlight-feature4", { opacity: 1, duration: 0.4 }, 1.2);
+      tl.to("#highlight-feature4", { scale: 1.03, duration: 0.5, repeat: 3, yoyo: true, ease: "sine.inOut" }, 1.6);
 
       // 1. Panel Entrances
       tl.from("#card-left", { x: -80, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.2);

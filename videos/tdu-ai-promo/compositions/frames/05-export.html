@@ -37,74 +37,43 @@
         text-transform: uppercase;
       }
 
-      /* Left Panel: Export Flow */
-      .export-container {
+      /* Left Panel: Feature Column 5 Highlight */
+      .simulation-area {
         flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 24px;
-      }
-
-      .export-item {
-        background: rgba(39, 39, 42, 0.4);
-        border: 1px solid rgba(255, 255, 255, 0.03);
+        background: #0d0d11;
+        border: 1px solid rgba(99, 102, 241, 0.15);
         border-radius: 16px;
-        padding: 24px;
-        display: flex;
-        align-items: center;
-        gap: 24px;
-        transform: scale(1);
-        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
       }
 
-      .export-icon {
-        width: 70px;
-        height: 70px;
-        border-radius: 14px;
+      .feature-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 32px;
-        font-weight: 800;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
       }
 
-      .ppt-icon {
-        background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
-        color: #ffffff;
+      .feature-img {
+        width: 100%;
+        height: auto;
+        display: block;
       }
 
-      .html-icon {
-        background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-        color: #ffffff;
-      }
-
-      .export-details {
-        flex-grow: 1;
-      }
-
-      .export-title {
-        font-size: 22px;
-        font-weight: 700;
-        margin-bottom: 6px;
-      }
-
-      .export-desc {
-        font-size: 15px;
-        color: #a1a1aa;
-      }
-
-      .download-badge {
-        background: rgba(16, 185, 129, 0.1);
-        border: 1px solid #10b981;
-        color: #10b981;
-        border-radius: 8px;
-        padding: 8px 16px;
-        font-size: 14px;
-        font-weight: 600;
+      .feature-highlighter {
+        position: absolute;
+        height: 100%;
+        top: 0;
+        box-sizing: border-box;
+        border-radius: 12px;
         opacity: 0;
-        transform: scale(0.8);
+        pointer-events: none;
+        left: 80%;
+        width: 20%;
+        border: 3px solid #7c3aed;
+        box-shadow: inset 0 0 20px rgba(124, 58, 237, 0.3), 0 0 20px rgba(124, 58, 237, 0.8);
       }
 
       /* Right Panel: Lark/Slack Chat Integration */
@@ -219,25 +188,10 @@
     <!-- Left Column: Export Cards -->
     <div class="panel-card" id="card-left">
       <div class="panel-label">💾 灵活的多格式离线导出</div>
-      <div class="export-container">
-        <!-- PPTX -->
-        <div class="export-item" id="item-ppt">
-          <div class="export-icon ppt-icon">P</div>
-          <div class="export-details">
-            <div class="export-title">可编辑 PowerPoint (.pptx)</div>
-            <div class="export-desc">下载完整的幻灯片，在本地自由二次修改编辑。</div>
-          </div>
-          <div class="download-badge" id="badge-ppt">已下载 ✓</div>
-        </div>
-        
-        <!-- HTML -->
-        <div class="export-item" id="item-html">
-          <div class="export-icon html-icon">H</div>
-          <div class="export-details">
-            <div class="export-title">交互式网页安装包 (.html)</div>
-            <div class="export-desc">完美打包整门课堂，无需网络随时进行离线教学。</div>
-          </div>
-          <div class="download-badge" id="badge-html">已下载 ✓</div>
+      <div class="simulation-area">
+        <div class="feature-wrapper">
+          <img src="assets/images/特色.png" class="feature-img" id="feature-img" />
+          <div class="feature-highlighter" id="highlight-feature5" data-layout-allow-overflow></div>
         </div>
       </div>
     </div>
@@ -284,13 +238,9 @@
       tl.from("#card-left", { x: -80, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.2);
       tl.from("#card-right", { x: 80, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.4);
 
-      // 2. Export downloads animation
-      tl.from("#item-ppt", { x: -40, opacity: 0, duration: 0.5 }, 1.0);
-      tl.from("#item-html", { x: -40, opacity: 0, duration: 0.5 }, 1.5);
-      
-      // Badges reveal
-      tl.to("#badge-ppt", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out" }, 2.0);
-      tl.to("#badge-html", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out" }, 2.4);
+      // Highlight Column 5 (灵活导出)
+      tl.to("#highlight-feature5", { opacity: 1, duration: 0.4 }, 1.2);
+      tl.to("#highlight-feature5", { scale: 1.03, duration: 0.5, repeat: 3, yoyo: true, ease: "sine.inOut" }, 1.6);
 
       // 3. Lark Integration Animation
       // Show user message row
