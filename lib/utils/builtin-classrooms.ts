@@ -22,9 +22,9 @@ export const BUILTIN_CLASSROOMS: BuiltinClassroomConfig[] = [
   },
   {
     id: 'builtin-14days',
-    name: '14天AI漫剧+短剧全流程进阶高手班',
+    name: '14天AI漫剧短剧全流程进阶高手班',
     description: '打通AI漫剧与爆款短剧的全链路制作，深入解析剧本创作、后期特效与镜头语言，迈向AI影视创作高手行列。',
-    zipPath: '/classrooms/14天AI漫剧+短剧全流程进阶高手班.maic.zip',
+    zipPath: '/classrooms/14天AI漫剧短剧全流程进阶高手班.maic.zip',
     color: 'from-purple-600 via-pink-600 to-rose-600 dark:from-purple-900/60 dark:via-pink-900/60 dark:to-rose-900/60',
     tag: '进阶高手',
     sceneCount: 14,
