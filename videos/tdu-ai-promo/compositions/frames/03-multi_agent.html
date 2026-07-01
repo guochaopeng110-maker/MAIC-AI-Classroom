@@ -5,285 +5,42 @@
         width: 100%;
         height: 100%;
         background: #09090b;
-        display: grid;
-        grid-template-columns: 360px 1fr 440px;
-        gap: 30px;
-        padding: 60px;
-        box-sizing: border-box;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         font-family: 'Inter', sans-serif;
         color: #ffffff;
-        overflow: hidden;
       }
 
-      /* Left Side: Teacher Card & Waveform */
-      .teacher-card {
-        background: rgba(20, 20, 25, 0.6);
-        border: 1px solid rgba(124, 58, 237, 0.2);
-        border-radius: 20px;
-        padding: 32px 24px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 24px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      .full-screen-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
 
-      .avatar {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #7c3aed 0%, #6366f1 100%);
-        border: 4px solid rgba(124, 58, 237, 0.3);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 50px;
-        box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
-      }
-
-      .teacher-info {
-        text-align: center;
-      }
-
-      .teacher-name {
-        font-size: 24px;
+      .caption-card {
+        position: absolute;
+        bottom: 60px;
+        background: rgba(15, 15, 20, 0.9);
+        border: 2px solid rgba(124, 58, 237, 0.4);
+        border-radius: 16px;
+        padding: 18px 40px;
+        font-size: 26px;
         font-weight: 700;
         color: #ffffff;
-        margin-bottom: 6px;
-      }
-
-      .teacher-title {
-        font-size: 16px;
-        color: #a5b4fc;
-        letter-spacing: 1px;
-      }
-
-      .voice-wave {
-        display: flex;
-        align-items: flex-end;
-        gap: 6px;
-        height: 80px;
-        margin-top: 20px;
-      }
-
-      .wave-bar {
-        width: 6px;
-        height: 10px;
-        background: linear-gradient(to top, #7c3aed, #6366f1);
-        border-radius: 3px;
-      }
-
-      .wave-bar.active {
-        animation: pulse 1.5s infinite ease-in-out;
-      }
-
-      @keyframes pulse {
-        0%, 100% { height: 10px; }
-        50% { height: 60px; }
-      }
-
-      /* Center: PPT Slide Area */
-      .slide-area {
-        background: #141419;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        border-radius: 24px;
-        padding: 24px !important;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-      }
-
-      .feature-wrapper {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        border-radius: 16px;
-      }
-
-      .feature-img {
-        width: 100%;
-        height: auto;
-        display: block;
-      }
-
-      .feature-highlighter {
-        position: absolute;
-        height: 100%;
-        top: 0;
-        box-sizing: border-box;
-        border-radius: 12px;
-        opacity: 0;
-        pointer-events: none;
-      }
-
-      #highlight-agent {
-        left: 20%;
-        width: 20%;
-        border: 3px solid #7c3aed;
-        box-shadow: inset 0 0 20px rgba(124, 58, 237, 0.3), 0 0 20px rgba(124, 58, 237, 0.8);
-      }
-
-      #highlight-board {
-        left: 40%;
-        width: 20%;
-        border: 3px solid #6366f1;
-        box-shadow: inset 0 0 20px rgba(99, 102, 241, 0.3), 0 0 20px rgba(99, 102, 241, 0.8);
-      }
-
-      .course-cards-overlay {
-        position: absolute;
-        inset: 0;
-        background: rgba(9, 9, 11, 0.95);
-        border-radius: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 30px;
-        padding: 40px;
-        opacity: 0;
-        z-index: 20;
-        pointer-events: none;
-      }
-
-      .course-card-img {
-        width: 46%;
-        height: auto;
-        border-radius: 16px;
-        border: 2px solid rgba(255, 255, 255, 0.08);
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
-      }
-
-      /* Right Side: Chat Container */
-      .chat-container {
-        background: rgba(20, 20, 25, 0.4);
-        border-radius: 20px;
-        padding: 24px;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.03);
-      }
-
-      .chat-title {
-        font-size: 18px;
-        font-weight: 700;
-        color: #a1a1aa;
-        letter-spacing: 1px;
-        padding-bottom: 12px;
-        border-b: 1px solid rgba(255, 255, 255, 0.05);
-      }
-
-      .chat-bubbles {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        flex-grow: 1;
-      }
-
-      .chat-bubble {
-        display: flex;
-        gap: 12px;
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      .bubble-avatar {
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        shrink: 0;
-      }
-
-      .bubble-content {
-        background: rgba(39, 39, 42, 0.6);
-        border-radius: 0 16px 16px 16px;
-        padding: 12px 16px;
-        font-size: 16px;
-        line-height: 1.4;
-        color: #e4e4e7;
-        max-width: 320px;
-      }
-
-      .chat-bubble.student-a .bubble-avatar {
-        background: #10b981;
-      }
-
-      .chat-bubble.teacher .bubble-avatar {
-        background: linear-gradient(135deg, #7c3aed 0%, #6366f1 100%);
-      }
-
-      .chat-bubble.student-b .bubble-avatar {
-        background: #f59e0b;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(124, 58, 237, 0.2);
+        z-index: 12;
+        letter-spacing: 2px;
       }
     </style>
 
-    <!-- Left: Teacher Info -->
-    <div class="teacher-card" id="card-left">
-      <div class="avatar" id="avatar-teacher">🎓</div>
-      <div class="teacher-info">
-        <div class="teacher-name">麦克老师</div>
-        <div class="teacher-title">AI 主讲教师</div>
-      </div>
-      <div class="voice-wave" id="wave">
-        <div class="wave-bar" id="wb1"></div>
-        <div class="wave-bar" id="wb2"></div>
-        <div class="wave-bar" id="wb3"></div>
-        <div class="wave-bar" id="wb4"></div>
-        <div class="wave-bar" id="wb5"></div>
-        <div class="wave-bar" id="wb6"></div>
-      </div>
-    </div>
-
-    <!-- Center: Feature List and Templates -->
-    <div class="slide-area" id="ppt-center">
-      <div class="feature-wrapper">
-        <img src="assets/images/特色.png" class="feature-img" id="feature-img" />
-        <div class="feature-highlighter" id="highlight-agent" data-layout-allow-overflow></div>
-        <div class="feature-highlighter" id="highlight-board" data-layout-allow-overflow></div>
-      </div>
-      
-      <!-- Course Cards Overlay -->
-      <div class="course-cards-overlay" id="course-cards-overlay">
-        <img src="assets/images/7天漫剧课程.png" class="course-card-img" id="card-7day" />
-        <img src="assets/images/21天漫剧课程.png" class="course-card-img" id="card-21day" />
-      </div>
-    </div>
-
-    <!-- Right: Chat Box -->
-    <div class="chat-container" id="chat-right">
-      <div class="chat-title">💬 课堂实时研讨</div>
-      <div class="chat-bubbles">
-        <div class="chat-bubble student-a" id="cb1">
-          <div class="bubble-avatar">👨‍🎓</div>
-          <div class="bubble-content">
-            <strong>肖肖同学：</strong>老师，在被观测前，猫真的处于生死各半的叠加状态吗？
-          </div>
-        </div>
-        <div class="chat-bubble teacher" id="cb2">
-          <div class="bubble-avatar">🎓</div>
-          <div class="bubble-content">
-            <strong>麦克老师：</strong>没错，这是哥本哈根诠释的核心理念。波函数尚未塌缩，生死两态在物理上完全共存。
-          </div>
-        </div>
-        <div class="chat-bubble student-b" id="cb3">
-          <div class="bubble-avatar">👩‍🎓</div>
-          <div class="bubble-content">
-            <strong>小星助教：</strong>这太不可思议了，量子微观世界的机制完全颠覆了我们日常的宏观认知。
-          </div>
-        </div>
-      </div>
+    <!-- Full screen classroom view -->
+    <img src="assets/images/21天漫剧课程.png" class="full-screen-img" id="classroom-img" data-layout-allow-overflow />
+    
+    <div class="caption-card" id="classroom-caption">
+      多智能体研讨：AI 老师生动讲解与学生互动问答
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
@@ -291,42 +48,11 @@
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
 
-      // Waveform Animation (calculated for duration 11s)
-      const bars = ["#wb1", "#wb2", "#wb3", "#wb4", "#wb5", "#wb6"];
-      const waveDur = 11;
-      bars.forEach((bar, idx) => {
-        const repeatCount = Math.ceil(waveDur / 0.8) - 1;
-        gsap.to(bar, {
-          height: 60 - idx * 6,
-          duration: 0.35 + idx * 0.08,
-          repeat: repeatCount,
-          yoyo: true,
-          ease: "power1.inOut"
-        });
-      });
+      // Ken Burns zoom/pan on full screen image
+      tl.fromTo("#classroom-img", { scale: 1.08, x: -15, y: -8 }, { scale: 1.0, x: 0, y: 0, duration: 11.5, ease: "sine.out" }, 0.2);
 
-      // 1. Entrance of components
-      tl.from("#card-left", { x: -80, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.2);
-      tl.from("#ppt-center", { scale: 0.95, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.4);
-      tl.from("#chat-right", { x: 80, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.6);
-
-      // 2. Slide Content Animation (Feature highlights & course templates)
-      tl.to("#highlight-agent", { opacity: 1, duration: 0.4 }, 1.2);
-      tl.to("#highlight-agent", { scale: 1.03, duration: 0.5, repeat: 3, yoyo: true, ease: "sine.inOut" }, 1.6);
-      
-      tl.to("#highlight-board", { opacity: 1, duration: 0.4 }, 3.5);
-      tl.to("#highlight-board", { scale: 1.03, duration: 0.5, repeat: 3, yoyo: true, ease: "sine.inOut" }, 3.9);
-
-      // Hide highlights and show course templates at 6.0s/6.5s
-      tl.to(["#highlight-agent", "#highlight-board"], { opacity: 0, duration: 0.3 }, 6.0);
-      tl.to("#course-cards-overlay", { opacity: 1, duration: 0.6 }, 6.5);
-      tl.from("#card-7day", { scale: 0.8, x: -30, opacity: 0, duration: 0.8, ease: "back.out(1.5)" }, 6.8);
-      tl.from("#card-21day", { scale: 0.8, x: 30, opacity: 0, duration: 0.8, ease: "back.out(1.5)" }, 7.1);
-
-      // 3. Discussion bubble triggers (timings: 3.0s, 6.0s, 8.5s)
-      tl.to("#cb1", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 3.0);
-      tl.to("#cb2", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 6.0);
-      tl.to("#cb3", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 8.5);
+      // Caption card fade in
+      tl.from("#classroom-caption", { y: 40, opacity: 0, duration: 0.8, ease: "power3.out" }, 1.0);
 
       window.__timelines["03-multi_agent"] = tl;
     </script>

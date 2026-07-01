@@ -166,11 +166,10 @@
 
     <!-- Left: 3D Simulation Panel -->
     <div class="panel-card" id="card-left">
-      <div class="panel-label">🎭 丰富的场景类型 (Interactive Sandbox)</div>
+      <div class="panel-label">🎯 真实课堂研讨与交互 (Interactive Classroom)</div>
       <div class="simulation-area">
         <div class="feature-wrapper">
-          <img src="assets/images/特色.png" class="feature-img" id="feature-img" />
-          <div class="feature-highlighter" id="highlight-feature4" data-layout-allow-overflow></div>
+          <img src="assets/images/21天漫剧课程.png" class="feature-img" id="feature-img" style="width: 100%; height: 100%; object-fit: cover;" data-layout-allow-overflow />
         </div>
       </div>
     </div>
@@ -178,18 +177,18 @@
     <!-- Right: Quiz card -->
     <div class="panel-card quiz-card" id="card-right">
       <div class="panel-label">📝 课堂随堂练习</div>
-      <div class="quiz-question">以下哪项是微观粒子所特有的量子物理性质？</div>
+      <div class="quiz-question">以下哪种变现模式最适合个人教师IP？</div>
       <div class="options-list">
         <div class="option-item" id="opt-a">
-          <span>A. 波粒二象性与叠加态</span>
+          <span>A. 知识付费社群与订阅</span>
           <div class="option-badge" id="badge-a">A</div>
         </div>
         <div class="option-item" id="opt-b">
-          <span>B. 经典绝对时空膨胀</span>
+          <span>B. 传统线下加盟培训</span>
           <div class="option-badge">B</div>
         </div>
         <div class="option-item" id="opt-c">
-          <span>C. 能量的绝对连续传播</span>
+          <span>C. 纯免费公开视频分享</span>
           <div class="option-badge">C</div>
         </div>
       </div>
@@ -203,13 +202,10 @@
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
 
-      // Highlight Column 4 (丰富的场景类型)
-      tl.to("#highlight-feature4", { opacity: 1, duration: 0.4 }, 1.2);
-      tl.to("#highlight-feature4", { scale: 1.03, duration: 0.5, repeat: 3, yoyo: true, ease: "sine.inOut" }, 1.6);
-
-      // 1. Panel Entrances
+      // 1. Panel Entrances & Ken Burns on screenshot
       tl.from("#card-left", { x: -80, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.2);
       tl.from("#card-right", { x: 80, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.4);
+      tl.fromTo("#feature-img", { scale: 1.08, x: -10, y: -5 }, { scale: 1.0, x: 0, y: 0, duration: 8.5, ease: "sine.out" }, 0.4);
       tl.from(".option-item", { opacity: 0, y: 15, stagger: 0.15, duration: 0.5, ease: "power2.out" }, 1.0);
 
       // 2. Simulate mouse movement to select Option A

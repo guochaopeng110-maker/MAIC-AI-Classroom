@@ -144,7 +144,7 @@
 
     <!-- Left: Pricing card -->
     <div class="pricing-card" id="pricing-img-container">
-      <img src="assets/images/定价.png" class="pricing-img" />
+      <img src="assets/images/定价.png" class="pricing-img" data-layout-allow-overflow />
     </div>
 
     <!-- Right: Logo & CTA card -->
@@ -165,6 +165,7 @@
       // 1. Entrance Animations
       tl.from("#logo-cta", { scale: 1.1, opacity: 0, duration: 1.0, ease: "power3.out" }, 0.3);
       tl.fromTo("#pricing-img-container", { scale: 0.9, x: -40, opacity: 0 }, { scale: 1, x: 0, opacity: 1, duration: 1.0, ease: "back.out(1.2)" }, 0.5);
+      tl.fromTo(".pricing-img", { scale: 1.08, x: -10, y: -5 }, { scale: 1.0, x: 0, y: 0, duration: 8.5, ease: "sine.out" }, 0.5);
       tl.from("#card-cta", { scale: 0.9, opacity: 0, duration: 1.0, ease: "back.out(1.2)" }, 0.6);
       
       tl.from("#desc-cta", { y: -20, opacity: 0, duration: 0.6, ease: "power2.out" }, 1.2);
