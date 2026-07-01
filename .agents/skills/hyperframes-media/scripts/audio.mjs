@@ -125,6 +125,7 @@ if (only.has("tts") && lines.length) {
     lang,
   });
   console.error(`· tts: ${ttsProvider} · voice ${voiceId} · ${lines.length} line(s)`);
+  const skipTtsGenerate = has("skip-tts-generate");
   const synthLine = async (line) => {
     const id = String(line.id);
     const text = String(line.text ?? "").trim();
@@ -134,15 +135,24 @@ if (only.has("tts") && lines.length) {
     }
     const rel = `assets/voice/${id}.wav`;
     const abs = join(hyperframesDir, rel);
-    const { ok, words } = await synthesizeOne({
-      provider: ttsProvider,
-      text,
-      voiceId,
-      lang,
-      speed,
-      wavAbs: abs,
-      hyperframesDir,
-    });
+    let ok = false;
+    let words = null;
+    if (skipTtsGenerate && existsSync(abs)) {
+      ok = true;
+      console.error(`  tts: [SKIP] using existing local audio file: ${rel}`);
+    } else {
+      const res = await synthesizeOne({
+        provider: ttsProvider,
+        text,
+        voiceId,
+        lang,
+        speed,
+        wavAbs: abs,
+        hyperframesDir,
+      });
+      ok = res.ok;
+      words = res.words;
+    }
     if (!ok) {
       anomalies.push(`line ${id}: TTS failed — omitted`);
       return null;

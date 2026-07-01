@@ -875,6 +875,41 @@ export const TTS_PROVIDERS: Record<BuiltInTTSProviderId, TTSProviderConfig> = {
     // Free-tier-safe fallback set; account-specific/custom voices should come from /v2/voices dynamically later.
     voices: [
       {
+        id: 'MI36FIkp9wRP7cpWKPTl',
+        name: 'Evan Zhao',
+        language: 'zh-CN',
+        gender: 'male',
+        description: 'Calm and trustworthy Mandarin male voice with a smooth rhythm',
+      },
+      {
+        id: 'ByhETIclHirOlWnWKhHc',
+        name: 'ShanShan',
+        language: 'zh-CN',
+        gender: 'female',
+        description: 'Young and energetic Mandarin female voice with lively energy',
+      },
+      {
+        id: 'W8lBaQb9YIoddhxfQNLP',
+        name: 'Siqi Liu',
+        language: 'zh-CN',
+        gender: 'male',
+        description: 'Calm and warm Mandarin male voice with a gentle rhythm',
+      },
+      {
+        id: 'bhJUNIXWQQ94l8eI2VUf',
+        name: 'Amy',
+        language: 'zh-CN',
+        gender: 'female',
+        description: 'Young and natural-sounding Mandarin female voice with a relaxed tone',
+      },
+      {
+        id: 'DowyQ68vDpgFYdWVGjc3',
+        name: 'Jason Chen',
+        language: 'zh-CN',
+        gender: 'male',
+        description: 'Deep and magnetic Mandarin male voice with a calm, steady tone',
+      },
+      {
         id: 'EXAVITQu4vr4xnSDxMaL',
         name: 'Sarah',
         language: 'en-US',
