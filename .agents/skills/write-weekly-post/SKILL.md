@@ -63,6 +63,42 @@ description: 自动收集项目更新数据（Git 提交和 CHANGELOG.md），�
    - 统一使用相对路径 `./images/cover.png` 和 `./images/illustration_x.png` 链接。
    - **图片前后强制留空行**：图片语法 `![alt](./images/...)` 的前后必须有且只有空行，不可与段落文字或 HTML 注释紧贴，确保微信解析器能正确解析图片。
    - 在 Markdown 图片下方隔空行添加 HTML 注释，提供明确的 AI 绘图 Prompt（例如 `<!-- Prompt: ... -->`）。
+5. **高级排版容器 (Layout Modules) 规范**：
+   为了使推文在微信公众号端呈现出极其精美、富有设计感的组件卡片（而非单调的纯文本），撰写时**必须且强制**使用 `md2wechat` 独有的 `:::module-name` 语法对内容进行包装：
+   - **引言/金句/教师心声**：使用 `:::quote-card`。
+     格式为：
+     ```markdown
+     :::quote-card
+     {"text":"要展示的金句或引用文字","source":"来源署名","author":"角色/头衔(可选)"}
+     :::
+     ```
+   - **落地操作步骤**：使用 `:::steps[步骤名称]`。
+     格式为：
+     ```markdown
+     :::steps[三步快速上手]
+     01 | 步骤一标题 | 步骤一详细解释说明
+     02 | 步骤二标题 | 步骤二详细解释说明
+     :::
+     ```
+   - **工具资源汇总**：使用 `:::toolbox[工具箱]`。
+     格式为：
+     ```markdown
+     :::toolbox[精品资源推荐]
+     类别 | 工具名称 | 功能描述 | 官方链接URL
+     :::
+     ```
+   - **文章收尾与关注引导**：在文章末尾使用 `:::subscribe`。
+     格式为：
+     ```markdown
+     :::subscribe
+     label: 关注分类标签
+     title: 主引导文案
+     subtitle: 价值说明
+     primary: 主要按钮文字
+     secondary: 次要按钮文字
+     note: 提示说明
+     :::
+     ```
 
 ### 步骤 4：AI 自动绘图与资源保存
 
